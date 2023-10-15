@@ -25,7 +25,7 @@ class AuthController extends Controller
                 return redirect('/backend/dashboard');
             } else {
                 if (auth()->user()->roles == 'user' && auth()->user()->is_verification == 1) {
-                    return redirect('/dashboard-pelanggan');
+                    return redirect('/backend/dashboard-pelanggan');
                 } else {
                     Auth::logout();
                     return back()->with('pesan-danger', 'Akun anda belum di verifikasi oleh admin');

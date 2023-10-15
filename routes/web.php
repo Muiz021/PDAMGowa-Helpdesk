@@ -27,18 +27,14 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('backend')->group(function () {
     Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
-        Route::get('/dashboard', function () {
-            return view('backend.pages.dashboard.dashboard');
-        });
-
+        Route::get('/dashboard', [PelangganController::class, 'dashboard_admin']);
         Route::get('/pelanggan', [PelangganController::class, 'pelanggan'])->name('pelanggan.index');
         Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
+        Route::post('/pelanggan/{id}', [PelangganController::class, 'edit_pelanggan']);
         Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
+    });
+    Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
+        Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan']);
     });
 });
 
-Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
-    Route::get('/dashboard-pelanggan', function () {
-        return 'Dashboard Pelanggan';
-    });
-});

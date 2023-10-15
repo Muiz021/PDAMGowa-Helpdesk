@@ -44,12 +44,16 @@
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <a href="/backend/updatestatus/{{ $item->id }}" class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Verifikasi">
+                                                <a href="/backend/updatestatus/{{ $item->id }}" class="item"
+                                                    data-toggle="tooltip" data-placement="top" title="Verifikasi">
                                                     <i class="zmdi zmdi-mail-send"></i>
                                                 </a>
-                                                <a href="/backend/pelanggan/{{ $item->id }}" class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Hapus">
+                                                <button class="item" data-target="#mediumModal{{ $item->id }}"
+                                                    data-toggle="modal" data-placement="top" title="Edit">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <a href="/backend/pelanggan/{{ $item->id }}" class="item"
+                                                    data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </a>
                                             </div>
@@ -64,4 +68,48 @@
             </div>
         </div>
     </div>
+
+    @foreach ($user as $item)
+        <div class="modal fade" id="mediumModal{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form action="/backend/pelanggan/{{ $item->id }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel">Edit Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nosamb" class="form-control-label">No. Samb</label>
+                                <input type="text" id="nosamb" name="nosamb" value="{{ $item->nosamb }}"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="nama" class="form-control-label">Nama</label>
+                                <input type="text" id="nama" name="nama" value="{{ $item->nama }}"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="no_hp" class="form-control-label">No. HP</label>
+                                <input type="text" id="no_hp" name="no_hp" value="{{ $item->no_hp }}"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat" class="form-control-label">Alamat</label>
+                                <textarea class="form-control" name="alamat" rows="3">{{ $item->alamat }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
