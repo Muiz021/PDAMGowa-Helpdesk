@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('frontend.landing-page');
 });
+
+Route::prefix('backend')->group( function () {
+    Route::get('dashboard', function () {
+        return view('backend.pages.dashboard.dashboard');
+    });
+});
