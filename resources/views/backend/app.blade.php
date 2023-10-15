@@ -6,7 +6,7 @@
     @include('backend.template.meta')
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>@yield('title')</title>
 
     @stack('before-style')
     @include('backend.template.style')

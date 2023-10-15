@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PelangganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,26 @@ Route::get('/', function () {
     return view('frontend.landing-page');
 });
 
-Route::prefix('backend')->group( function () {
-    Route::get('dashboard', function () {
-        return view('backend.pages.dashboard.dashboard');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login_action'])->name('login.action');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'register_action'])->name('register.action');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::prefix('backend')->group(function () {
+    Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
+        Route::get('/dashboard', function () {
+            return view('backend.pages.dashboard.dashboard');
+        });
+
+        Route::get('/pelanggan', [PelangganController::class, 'pelanggan'])->name('pelanggan.index');
+        Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
+        Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
+    });
+});
+
+Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
+    Route::get('/dashboard-pelanggan', function () {
+        return 'Dashboard Pelanggan';
     });
 });

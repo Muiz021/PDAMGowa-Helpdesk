@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>Register</title>
 
     <!-- Fontfaces CSS-->
     <link href="backend/css/font-face.css" rel="stylesheet" media="all">
@@ -38,20 +38,17 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-        <div class="page-content--bge5">
+        <div>
             <div class="container">
                 <div class="login-wrap">
-                    <div class="login-content" style="margin-top: 50px">
+                    <div class="login-content" style="margin-top: 50px; margin-bottom:30px;">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="frontend/assets/img/logo-pdam.png" width="70px">
+                                <img src="frontend/assets/img/logo-pdam.png" width="70px" alt="CoolAdmin">
                             </a>
                         </div>
                         @if (session('pesan-danger'))
                             <p class="alert alert-danger">{{ session('pesan-danger') }}</p>
-                        @endif
-                        @if (session('pesan-success'))
-                            <p class="alert alert-success">{{ session('pesan-success') }}</p>
                         @endif
                         @if ($errors->any())
                             @foreach ($errors->all() as $err)
@@ -59,8 +56,27 @@
                             @endforeach
                         @endif
                         <div class="login-form">
-                            <form action="/login" method="post">
+                            <form action="/register" method="post">
                                 @csrf
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input class="au-input au-input--full" type="text" name="nama"
+                                        placeholder="Nama">
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Samb</label>
+                                    <input class="au-input au-input--full" type="text" name="nosamb"
+                                        placeholder="No. Samb">
+                                </div>
+                                <div class="form-group">
+                                    <label>No. HP</label>
+                                    <input class="au-input au-input--full" type="text" name="no_hp"
+                                        placeholder="No. HP">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <textarea class="au-input au-input--full" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
+                                </div>
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input class="au-input au-input--full" type="text" name="username"
@@ -71,13 +87,12 @@
                                     <input class="au-input au-input--full" type="password" name="password"
                                         placeholder="Password">
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20 mt-4" type="submit">Log
-                                    in</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20 mt-4" type="submit">Register</button>
                             </form>
                             <div class="register-link">
                                 <p>
-                                    Tidak Mempunyai Akun?
-                                    <a href="/register">Daftar</a>
+                                    Sudah Mempunyai Akun?
+                                    <a href="/login">Log In</a>
                                 </p>
                             </div>
                         </div>

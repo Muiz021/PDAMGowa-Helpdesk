@@ -4498,36 +4498,8 @@ section {
     padding-right: 10px;
 }
 
-.table-data2.table thead th:first-child {
-    padding-right: 0;
-}
-
 .table-data2.table tbody {
     background: #fff;
-}
-
-.table-data2.table tbody tr td:first-child {
-    -webkit-border-top-left-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-radius-bottomleft: 3px;
-    border-bottom-left-radius: 3px;
-    vertical-align: top;
-}
-
-.table-data2.table tbody tr td:first-child .au-checkbox {
-    margin-top: 5px;
-}
-
-@media (max-width: 1199px) {
-    .table-data2.table tbody tr td:first-child {
-        vertical-align: middle;
-    }
-
-    .table-data2.table tbody tr td:first-child .au-checkbox {
-        margin-top: 0;
-    }
 }
 
 .table-data2.table tbody tr td:last-child {
