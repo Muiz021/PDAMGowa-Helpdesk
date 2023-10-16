@@ -72,7 +72,7 @@
     @foreach ($user as $item)
         <div class="modal fade" id="mediumModal{{ $item->id }}" tabindex="-1" role="dialog"
             aria-labelledby="mediumModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <form action="/backend/pelanggan/{{ $item->id }}" method="post">
                         @csrf

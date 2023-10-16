@@ -8,7 +8,7 @@
                     <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#create-pengaduan">
                         <i class="fas fa-plus-circle mr-2"></i><span>Tambah Pengaduan</span>
                     </button>
-                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="table-data__tool" style="margin-bottom: -20px">
                         <div class="table-data__tool-left">
@@ -27,27 +27,37 @@
                             </thead>
                             <tbody>
                                 @foreach ($pengaduans as $item)
-                                <tr class="tr-shadow">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->jenis_pengaduan }}</td>
-                                    <td>
-                                        @if ($item->status == 0)
-                                            <span class="status--denied">Belum Di Verifikasi</span>
-                                        @elseif ($item->status == 1)
-                                            <span class="status--process">Di Verifikasi</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="table-data-feature">
-                                            <a href="{{route('pengaduan.show',$item->id)}}" class="item"
-                                                data-toggle="tooltip" data-placement="top" title="Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                            @endforeach
+                                    <tr class="tr-shadow">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            @if ($item->jenis_pengaduan == 'air_tidak_mengalir')
+                                                Air Tidak Mengalir
+                                            @elseif ($item->jenis_pengaduan == 'air_keruh')
+                                                Air Keruh
+                                            @elseif ($item->jenis_pengaduan == 'keberatan_bayar')
+                                                Keberatan Bayar
+                                            @elseif ($item->jenis_pengaduan == 'pembenahan_sambungan')
+                                                Pembenahan Sambungan
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->status_pengaduan == 0)
+                                                <span class="status--denied">Belum Selesai</span>
+                                            @elseif ($item->status_pengaduan == 1)
+                                                <span class="status--process">Selesai</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="table-data-feature">
+                                                <a href="{{ route('pengaduan.show', $item->id) }}" class="item"
+                                                    data-toggle="tooltip" data-placement="top" title="Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -56,11 +66,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="create-pengaduan" tabindex="-1" role="dialog"
-        aria-labelledby="mediumModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="create-pengaduan" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
-                <form action="{{route('pengaduan.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('pengaduan.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="mediumModalLabel">Membuat Data</h5>
@@ -92,4 +102,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var botmanWidget = {
+            introMessage: 'Halo {{ auth()->user()->nama }}, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp',
+            title: 'Chat Bot',
+            aboutText: 'PDAM Gowa',
+            placeholderText: 'Kirim Pesan...',
+            mainColor: '#2891E9',
+            bubbleBackground: '	#2891E9',
+            bubbleAvatarUrl: '',
+            aboutLink: '/',
+            userId: '{{ auth()->user()->id }}'
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 @endsection

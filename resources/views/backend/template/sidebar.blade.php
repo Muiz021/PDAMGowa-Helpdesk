@@ -25,7 +25,7 @@
             @elseif (auth()->user()->roles == 'user')
                 <ul class="list-unstyled navbar__list">
                     <li class="{{ request()->is('backend/dashboard-pelanggan*') ? 'active' : '' }}">
-                        <a href="/backend/dashboard">
+                        <a href="/backend/dashboard-pelanggan">
                             <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
                     <li class="{{ request()->is('backend/pengaduan*') ? 'active' : '' }}">

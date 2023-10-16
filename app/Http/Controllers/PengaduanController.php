@@ -7,6 +7,7 @@ use App\Models\Pengaduan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PengaduanController extends Controller
 {
@@ -39,15 +40,20 @@ class PengaduanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'jenis_pengaduan' => 'required',
+            'bukti_pengaduan' => 'required',
+        ]);
+
         $user_id = Auth::user()->id;
         if ($request->jenis_pengaduan == '1') {
-            $jenis_pengaduan = 'Air tidak mengalir';
+            $jenis_pengaduan = 'air_tidak_mengalir';
         } else if ($request->jenis_pengaduan == '2') {
-            $jenis_pengaduan = 'Air keruh';
+            $jenis_pengaduan = 'air_keruh';
         } else if ($request->jenis_pengaduan == '3') {
-            $jenis_pengaduan = 'Keberatan bayar';
+            $jenis_pengaduan = 'keberatan_bayar';
         } else if ($request->jenis_pengaduan == '4') {
-            $jenis_pengaduan = 'Pembenahan sambungan';
+            $jenis_pengaduan = 'pembenahan_sambungan';
         }
 
         $foto = $request->file('bukti_pengaduan');
@@ -56,11 +62,37 @@ class PengaduanController extends Controller
         $profileImage = $baseURL . "/images/" . Str::slug($jenis_pengaduan) . '-' . Carbon::now()->format('YmdHis') . "." . $foto->getClientOriginalExtension();
         $foto->move($destinationPath, $profileImage);
 
-        Pengaduan::create([
+        $pengaduan = Pengaduan::create([
             'user_id' => $user_id,
             'jenis_pengaduan' => $jenis_pengaduan,
             'bukti_pengaduan' => $profileImage
         ]);
+
+        if ($request->jenis_pengaduan == '1') {
+            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
+                $emailPDAM = "awiajha123@gmail.com";
+                $message->to($emailPDAM);
+                $message->subject('Keluhan Air Tidak Mengalir');
+            });
+        } else if ($request->jenis_pengaduan == '2') {
+            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
+                $emailPDAM = "awiajha123@gmail.com";
+                $message->to($emailPDAM);
+                $message->subject('Keluhan Air Tidak Keruh');
+            });
+        } else if ($request->jenis_pengaduan == '3') {
+            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
+                $emailPDAM = "awiajha123@gmail.com";
+                $message->to($emailPDAM);
+                $message->subject('Keluhan Keberatan Bayar');
+            });
+        } else if ($request->jenis_pengaduan == '4') {
+            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
+                $emailPDAM = "awiajha123@gmail.com";
+                $message->to($emailPDAM);
+                $message->subject('Keluhan Pembenahan Sambungan');
+            });
+        }
 
         return redirect()->back();
     }
