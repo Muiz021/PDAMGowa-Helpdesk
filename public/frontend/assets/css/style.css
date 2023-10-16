@@ -140,7 +140,7 @@ h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -250,7 +250,7 @@ h6 {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #364146;
@@ -437,7 +437,7 @@ section {
 }
 
 .section-bg {
-  background-color: #f7f8f9;
+  background-color: #FFF;
 }
 
 .section-title {
@@ -581,7 +581,7 @@ section {
   position: relative;
   overflow: hidden;
   margin: 0;
-  background: #fff;
+  background: #f7f8f9;
   box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
   transition: all 0.3s ease-in-out;
   border-radius: 4px;

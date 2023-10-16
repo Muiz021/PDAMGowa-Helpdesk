@@ -16,8 +16,12 @@ use App\Http\Controllers\PelangganController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.landing-page');
+
+Route::name('frontend')->group(function() {
+    Route::get('/', function () {
+        return view('frontend.landing-page');
+    });
+
 });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -37,6 +41,7 @@ Route::prefix('backend')->group(function () {
     Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
         Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan']);
     });
+    #end dashboard#
 });
 
 Route::match(['get','post'],'/botman',[BotManController::class,'handle'])->middleware('auth', 'OnlyUser');

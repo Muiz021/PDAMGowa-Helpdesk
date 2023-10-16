@@ -26,11 +26,10 @@
                 <div class="col-lg-4 col-md-6 footer-links">
                     <h4>Tautan</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Sejarah</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#about">Sejarah</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#services">Pelayanan</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#clients">Lokasi</a></li>
                     </ul>
                 </div>
 
