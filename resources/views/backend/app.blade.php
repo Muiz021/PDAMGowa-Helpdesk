@@ -45,6 +45,5 @@
     @stack('after-script')
 
 </body>
-
 </html>
 <!-- end document-->

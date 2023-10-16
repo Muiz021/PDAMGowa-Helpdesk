@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PengaduanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::prefix('backend')->group(function () {
     });
     Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
         Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan']);
+        Route::resource('pengaduan',PengaduanController::class)->except('destroy','update','create','edit');
     });
     #end dashboard#
 });

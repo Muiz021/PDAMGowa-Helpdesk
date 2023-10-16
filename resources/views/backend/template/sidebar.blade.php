@@ -28,6 +28,10 @@
                         <a href="/backend/dashboard">
                             <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
+                    <li class="{{ request()->is('backend/pengaduan*') ? 'active' : '' }}">
+                        <a href="{{route('pengaduan.index')}}">
+                            <i class="fa fa-bullhorn"></i>Pengaduan</a>
+                    </li>
                 </ul>
             @endif
         </nav>
