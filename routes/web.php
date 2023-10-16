@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PelangganController;
 
 /*
@@ -37,4 +38,6 @@ Route::prefix('backend')->group(function () {
         Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan']);
     });
 });
+
+Route::match(['get','post'],'/botman',[BotManController::class,'handle'])->middleware('auth', 'OnlyUser');
 

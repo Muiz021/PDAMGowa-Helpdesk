@@ -3,7 +3,11 @@
         <a href="#">
             <img src="{{ asset('frontend/assets/img/logo-pdam.png') }}" width="50px" />
         </a>
-        <span style="margin-left: 10px">Admin</span>
+        @if (auth()->user()->roles == 'admin')
+            <span style="margin-left: 10px">Admin</span>
+        @elseif (auth()->user()->roles == 'user')
+            <span style="margin-left: 10px">Pelanggan</span>
+        @endif
     </div>
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">

@@ -65,4 +65,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var botmanWidget = {
+            introMessage :'Halo {{ auth()->user()->nama }}, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp',
+            title: 'Chat Bot',
+            aboutText: 'PDAM Gowa',
+            placeholderText: 'Kirim Pesan...',
+            mainColor: '#2891E9',
+            bubbleBackground: '	#2891E9',
+            bubbleAvatarUrl: '',
+            aboutLink: '/',
+            userId: '{{ auth()->user()->id }}'
+        };
+
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 @endsection
