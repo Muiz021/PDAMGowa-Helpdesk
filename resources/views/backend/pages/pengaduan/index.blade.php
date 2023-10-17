@@ -83,10 +83,18 @@
                             <label for="jenis_pengaduan" class="form-control-label">Jenis Pengaduan</label>
                             <select name="jenis_pengaduan" id="SelectLm" class="form-control-sm form-control">
                                 <option value="">Please select</option>
-                                <option value="1">Air Tidak Mengalir</option>
-                                <option value="2">Air Keruh</option>
-                                <option value="3">Keberatan Bayar</option>
-                                <option value="4">Pembenahan Sambungan</option>
+                                @if (!$airTidakMengalir)
+                                    <option value="1">Air Tidak Mengalir</option>
+                                @endif
+                                @if (!$airKeruh)
+                                    <option value="2">Air Keruh</option>
+                                @endif
+                                @if (!$keberatanBayar)
+                                    <option value="3">Keberatan Bayar</option>
+                                @endif
+                                @if (!$pembenahanSambungan)
+                                    <option value="4">Pembenahan Sambungan</option>
+                                @endif
                             </select>
                         </div>
                         <div class="form-group">

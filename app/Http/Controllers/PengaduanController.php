@@ -19,7 +19,12 @@ class PengaduanController extends Controller
     public function index()
     {
         $pengaduans = Pengaduan::get();
-        return view('backend.pages.pengaduan.index', compact('pengaduans'));
+        $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 0)->first();
+        $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 0)->first();
+        $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 0)->first();
+        $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 0)->first();
+
+        return view('backend.pages.pengaduan.index', compact('pengaduans', 'airTidakMengalir', 'airKeruh', 'keberatanBayar', 'pembenahanSambungan'));
     }
 
     /**

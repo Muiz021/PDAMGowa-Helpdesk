@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-12 align-self-center">
                                     <div class="mb-3">
-                                        <label class="form-label">Nama Tempat</label>
+                                        <label class="form-label">No. Sambungan</label>
                                         <h5 class="fw-bold">
                                             {{ auth()->user()->nosamb }}
                                         </h5>

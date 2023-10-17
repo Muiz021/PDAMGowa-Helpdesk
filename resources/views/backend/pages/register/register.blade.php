@@ -61,31 +61,31 @@
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input class="au-input au-input--full" type="text" name="nama"
-                                        placeholder="Nama">
+                                        placeholder="Masukkan Nama">
                                 </div>
                                 <div class="form-group">
-                                    <label>No. Samb</label>
+                                    <label>No. Sambungan</label>
                                     <input class="au-input au-input--full" type="text" name="nosamb"
-                                        placeholder="No. Samb">
+                                        placeholder="Masukkan No. Sambungan">
                                 </div>
                                 <div class="form-group">
                                     <label>No. HP</label>
                                     <input class="au-input au-input--full" type="text" name="no_hp"
-                                        placeholder="No. HP">
+                                        placeholder="Masukkan No. HP">
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea class="au-input au-input--full" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
+                                    <textarea class="au-input au-input--full" name="alamat" id="alamat" rows="3" placeholder="Masukkan Alamat"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input class="au-input au-input--full" type="text" name="username"
-                                        placeholder="Username">
+                                        placeholder="Masukkan Username">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="password"
-                                        placeholder="Password">
+                                        placeholder="Masukkan Password">
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20 mt-4" type="submit">Register</button>
                             </form>

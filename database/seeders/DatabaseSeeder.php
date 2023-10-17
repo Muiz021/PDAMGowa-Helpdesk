@@ -19,21 +19,24 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert(
-        [
-                [
-                    'nama' => 'Admin',
-                    'username' => 'admin',
-                    'password' => Hash::make('admin'),
-                    'roles' => 'admin'
-                ],
-                [
-                    'nama' => 'Muiz',
-                    'username' => 'user',
-                    'password' => Hash::make('user'),
-                    'roles' => 'user'
-                ]
+            [
+                'nama' => 'Admin',
+                'username' => 'admin',
+                'password' => Hash::make('admin'),
+                'roles' => 'admin'
             ],
-
+        );
+        DB::table('users')->insert(
+            [
+                'nama' => 'Muiz',
+                'nosamb' => '123',
+                'no_hp' => '081222343598',
+                'alamat' => 'Samata',
+                'is_verification' => true,
+                'username' => 'user',
+                'password' => Hash::make('user'),
+                'roles' => 'user'
+            ],
         );
     }
 }
