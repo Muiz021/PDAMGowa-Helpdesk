@@ -25,7 +25,7 @@
                     <div>
                         <h1>PDAM Tirta Jeneberang Menjadi PDAM yang Mandiri.</h1>
                         <h2>Profesional dan Mengutamakan pelayanan Turut serta melaksanakan Pembangunan Daerah</h2>
-                        <a href="#" class="btn-get-started scrollto">Get Started</a>
+                        <a href="{{url('/login')}}" class="btn-get-started scrollto">Get Started</a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">

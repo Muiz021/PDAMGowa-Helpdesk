@@ -44,7 +44,7 @@
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <a href="/backend/updatestatus/{{ $item->id }}" class="item"
+                                                <a href="/backend/admin/updatestatus/{{ $item->id }}" class="item"
                                                     data-toggle="tooltip" data-placement="top" title="Verifikasi">
                                                     <i class="zmdi zmdi-mail-send"></i>
                                                 </a>
@@ -52,7 +52,7 @@
                                                     data-toggle="modal" data-placement="top" title="Edit">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
-                                                <a href="/backend/pelanggan/{{ $item->id }}" class="item"
+                                                <a href="/backend/admin/pelanggan/{{ $item->id }}" class="item"
                                                     data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </a>
@@ -74,7 +74,7 @@
             aria-labelledby="mediumModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
-                    <form action="/backend/pelanggan/{{ $item->id }}" method="post">
+                    <form action="/backend/admin/pelanggan/{{ $item->id }}" method="post">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="mediumModalLabel">Edit Data</h5>

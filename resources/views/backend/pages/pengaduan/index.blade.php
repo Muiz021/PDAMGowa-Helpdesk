@@ -5,9 +5,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-start my-3">
-                    <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#create-pengaduan">
-                        <i class="fas fa-plus-circle mr-2"></i><span>Tambah Pengaduan</span>
-                    </button>
+                    @if (Auth::user()->roles == 'user')
+                        <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#create-pengaduan">
+                            <i class="fas fa-plus-circle mr-2"></i><span>Tambah Pengaduan</span>
+                        </button>
+                    @endif
                 </div>
                 <div class="col-md-12">
                     <div class="table-data__tool" style="margin-bottom: -20px">
@@ -40,19 +42,64 @@
                                                 Pembenahan Sambungan
                                             @endif
                                         </td>
+
                                         <td>
                                             @if ($item->status_pengaduan == 0)
-                                                <span class="status--denied">Belum Selesai</span>
+                                                <span class="status--denied">Belum Di Verifikasi</span>
                                             @elseif ($item->status_pengaduan == 1)
-                                                <span class="status--process">Selesai</span>
+                                                <span class="status--process">Di Verifikasi</span>
                                             @endif
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <a href="{{ route('pengaduan.show', $item->id) }}" class="item"
-                                                    data-toggle="tooltip" data-placement="top" title="Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
+                                                @if (Auth::user()->roles == 'admin')
+                                                    <form action="{{ route('update-pengaduan', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('put')
+                                                        <button type="submit" class="item mr-1" data-placement="top"
+                                                            title="Verifikasi">
+                                                            <i class="zmdi zmdi-mail-send"></i>
+                                                        </button>
+                                                    </form>
+                                                    <a href="{{ route('pengaduan.admin.show', $item->id) }}" class="item"
+                                                        data-toggle="tooltip" data-placement="top" title="Detail">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <button class="item"
+                                                        data-target="#update-pengaduan-{{ $item->id }}"
+                                                        data-toggle="modal" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <form action="{{ route('pengaduan.admin.destroy', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="item" data-placement="top"
+                                                            title="Hapus">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <a href="{{ route('pengaduan.show', $item->id) }}" class="item"
+                                                        data-toggle="tooltip" data-placement="top" title="Detail">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <button class="item"
+                                                        data-target="#update-pengaduan-{{ $item->id }}"
+                                                        data-toggle="modal" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <form action="{{ route('pengaduan.destroy', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="item" data-placement="top"
+                                                            title="Hapus">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -66,63 +113,22 @@
         </div>
     </div>
 
-    <div class="modal fade" id="create-pengaduan" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <form action="{{ route('pengaduan.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mediumModalLabel">Membuat Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="jenis_pengaduan" class="form-control-label">Jenis Pengaduan</label>
-                            <select name="jenis_pengaduan" id="SelectLm" class="form-control-sm form-control">
-                                <option value="">Please select</option>
-                                @if (!$airTidakMengalir)
-                                    <option value="1">Air Tidak Mengalir</option>
-                                @endif
-                                @if (!$airKeruh)
-                                    <option value="2">Air Keruh</option>
-                                @endif
-                                @if (!$keberatanBayar)
-                                    <option value="3">Keberatan Bayar</option>
-                                @endif
-                                @if (!$pembenahanSambungan)
-                                    <option value="4">Pembenahan Sambungan</option>
-                                @endif
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="bukti_pengaduan" class="form-control-label">Bukti Pengaduan</label>
-                            <input type="file" name="bukti_pengaduan" class="form-control-sm form-control">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('backend.pages.pengaduan.model')
 
-    <script>
-        var botmanWidget = {
-            introMessage: 'Halo {{ auth()->user()->nama }}, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp',
-            title: 'Chat Bot',
-            aboutText: 'PDAM Gowa',
-            placeholderText: 'Kirim Pesan...',
-            mainColor: '#2891E9',
-            bubbleBackground: '	#2891E9',
-            bubbleAvatarUrl: '',
-            aboutLink: '/',
-            userId: '{{ auth()->user()->id }}'
-        };
-    </script>
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    @if (Auth::user()->roles == 'user')
+        <script>
+            var botmanWidget = {
+                introMessage: 'Halo {{ auth()->user()->nama }}, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp',
+                title: 'Chat Bot',
+                aboutText: 'PDAM Gowa',
+                placeholderText: 'Kirim Pesan...',
+                mainColor: '#2891E9',
+                bubbleBackground: '	#2891E9',
+                bubbleAvatarUrl: '',
+                aboutLink: '/',
+                userId: '{{ auth()->user()->id }}'
+            };
+        </script>
+        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    @endif
 @endsection

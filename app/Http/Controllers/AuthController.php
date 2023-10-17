@@ -22,10 +22,10 @@ class AuthController extends Controller
         ]);
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             if (Auth::user()->roles == 'admin') {
-                return redirect('/backend/dashboard');
+                return redirect('/backend/admin/dashboard');
             } else {
                 if (auth()->user()->roles == 'user' && auth()->user()->is_verification == 1) {
-                    return redirect('/backend/dashboard-pelanggan');
+                    return redirect('/backend/user/dashboard-pelanggan');
                 } else {
                     Auth::logout();
                     return back()->with('pesan-danger', 'Akun anda belum di verifikasi oleh admin');

@@ -28,16 +28,6 @@ class PengaduanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        abort(404);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -75,25 +65,25 @@ class PengaduanController extends Controller
 
         if ($request->jenis_pengaduan == '1') {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Keluhan Air Tidak Mengalir');
             });
         } else if ($request->jenis_pengaduan == '2') {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Keluhan Air Tidak Keruh');
             });
         } else if ($request->jenis_pengaduan == '3') {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Keluhan Keberatan Bayar');
             });
         } else if ($request->jenis_pengaduan == '4') {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Keluhan Pembenahan Sambungan');
             });
@@ -113,18 +103,6 @@ class PengaduanController extends Controller
         return view('backend.pages.pengaduan.show', compact('pengaduan'));
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pengaduan  $pengaduan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pengaduan $pengaduan)
-    {
-        abort(404);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -134,7 +112,41 @@ class PengaduanController extends Controller
      */
     public function update(Request $request, Pengaduan $pengaduan)
     {
-        abort(404);
+
+        $request->validate([
+            'jenis_pengaduan' => 'required',
+        ]);
+
+        if ($request->jenis_pengaduan == '1') {
+            $jenis_pengaduan = 'air_tidak_mengalir';
+        } else if ($request->jenis_pengaduan == '2') {
+            $jenis_pengaduan = 'air_keruh';
+        } else if ($request->jenis_pengaduan == '3') {
+            $jenis_pengaduan = 'keberatan_bayar';
+        } else if ($request->jenis_pengaduan == '4') {
+            $jenis_pengaduan = 'pembenahan_sambungan';
+        }
+
+        $data = [
+            'jenis_pengaduan' => $jenis_pengaduan,
+        ];
+
+        if ($request->hasFile('bukti_pengaduan')) {
+            $file_path_image = public_path('images/' . $pengaduan->bukti_pengaduan);
+            if (file_exists($file_path_image)) {
+                unlink($file_path_image);
+            }
+
+            $foto = $request->file('bukti_pengaduan');
+            $destinationPath = 'images/';
+            $baseURL = url('/');
+            $profileImage = $baseURL . "/images/" . Str::slug($jenis_pengaduan) . '-' . Carbon::now()->format('YmdHis') . "." . $foto->getClientOriginalExtension();
+            $foto->move($destinationPath, $profileImage);
+            $data['bukti_pengaduan'] = $profileImage;
+        }
+        $pengaduan->update($data);
+
+        return redirect()->back();
     }
 
     /**
@@ -145,6 +157,18 @@ class PengaduanController extends Controller
      */
     public function destroy(Pengaduan $pengaduan)
     {
-        abort(404);
+        $pengaduan->delete();
+        return redirect()->back();
+    }
+
+    public function update_status($id)
+    {
+        $pengaduan = Pengaduan::findorfail($id);
+        $pengaduan->update(
+            [
+                'status_pengaduan' => 1
+            ]
+        );
+        return redirect()->back();
     }
 }

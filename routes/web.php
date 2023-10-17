@@ -32,16 +32,27 @@ Route::post('/register', [AuthController::class, 'register_action'])->name('regi
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('backend')->group(function () {
-    Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
-        Route::get('/dashboard', [PelangganController::class, 'dashboard_admin']);
+    // admin
+    Route::group(['middleware' => ['auth', 'OnlyAdmin'],'prefix' => 'admin'], function () {
+        Route::get('/dashboard', [PelangganController::class, 'dashboard_admin'])->name('dashboard.admin');
         Route::get('/pelanggan', [PelangganController::class, 'pelanggan'])->name('pelanggan.index');
         Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
         Route::post('/pelanggan/{id}', [PelangganController::class, 'edit_pelanggan']);
         Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
+        Route::resource('pengaduan',PengaduanController::class)->only('destroy','update','index','show')->names
+        ([
+            'index' => 'pengaduan.admin.index',
+            'show' => 'pengaduan.admin.show',
+            'update' => 'pengaduan.admin.update',
+            'destroy' => 'pengaduan.admin.destroy',
+        ]);
+        Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
     });
-    Route::group(['middleware' => ['auth', 'OnlyUser']], function () {
-        Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan']);
-        Route::resource('pengaduan',PengaduanController::class)->except('destroy','update','create','edit');
+
+    // user
+    Route::group(['middleware' => ['auth', 'OnlyUser'],'prefix' => 'user'], function () {
+        Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan'])->name('dashboard.user');
+        Route::resource('pengaduan',PengaduanController::class)->except('create','edit');
     });
     #end dashboard#
 });

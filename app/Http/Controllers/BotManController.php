@@ -81,7 +81,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Pengingat Keluhan Air Tidak Mengalir');
             });
@@ -102,7 +102,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Pengingat Keluhan Air Keruh');
             });
@@ -123,7 +123,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Pengingat Keluhan Keberatan Bayar');
             });
@@ -144,7 +144,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "awiajha123@gmail.com";
+                $emailPDAM = "bot.pdamgowa@gmail.com";
                 $message->to($emailPDAM);
                 $message->subject('Pengingat Keluhan Pembenahan Sambungan');
             });

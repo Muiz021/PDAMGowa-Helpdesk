@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengaduan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +12,10 @@ class PelangganController extends Controller
     public function dashboard_admin()
     {
         $pelanggan = User::where('roles', '=', 'user')->get();
-        return view('backend.pages.dashboard.dashboard', compact('pelanggan'));
+        $pengaduan = Pengaduan::get();
+        return view('backend.pages.dashboard.dashboard', compact('pelanggan','pengaduan'));
     }
-    
+
     public function dashboard_pelanggan()
     {
         $user = Auth::user();
@@ -36,14 +38,14 @@ class PelangganController extends Controller
         $user->alamat = $request->alamat;
 
         $user->update();
-        return redirect('/backend/pelanggan');
+        return redirect('/backend/admin/pelanggan');
     }
 
     public function hapus_pelanggan($id)
     {
         $user = User::Where('id', $id)->first();
         $user->delete();
-        return redirect('/backend/pelanggan');
+        return redirect('/backend/admin/pelanggan');
     }
 
     public function updateStatus($id)
@@ -52,6 +54,6 @@ class PelangganController extends Controller
         $user->update([
             "is_verification" => true
         ]);
-        return redirect('/backend/pelanggan');
+        return redirect('/backend/admin/pelanggan');
     }
 }
