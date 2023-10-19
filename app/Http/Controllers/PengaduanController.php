@@ -210,6 +210,11 @@ class PengaduanController extends Controller
      */
     public function destroy(Pengaduan $pengaduan)
     {
+
+        $file_path_image = public_path('images/' . $pengaduan->bukti_pengaduan);
+        if (file_exists($file_path_image)) {
+            unlink($file_path_image);
+        }
         $pengaduan->delete();
         return redirect()->back();
     }

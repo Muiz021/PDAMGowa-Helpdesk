@@ -11,52 +11,53 @@
                         <h2 class="title-1">Dashboard</h2>
                     </div>
                 </div>
-            </div>
-            <div class="row m-t-25">
-                <div class="col-12">
-                    <div class="au-card recent-report">
-                        <div class="au-card-inner">
-                            <h3 class="title-2">Profil</h3>
-                            <div class="row mt-4 ms-3">
-                                <div class="col-lg-4 col-md-12 align-self-center">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nama</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->nama }}
-                                        </h5>
+                <div class="col-md-12 my-3">
+                    <div class="card">
+                        <div class="card-header">Profil User</div>
+                        <div class="card-body">
+                            <form action="#" method="post" novalidate="novalidate" @disabled(true)>
+                                <div class="d-flex">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="nama" class="form-control-label">Nama</label>
+                                            <input type="text" name="nama" class="form-control-sm form-control"
+                                                value="{{ Auth::user()->nama }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama" class="form-control-label">Username</label>
+                                            <input type="text" name="username" class="form-control-sm form-control"
+                                                value="{{ Auth::user()->username }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="no_whatsapp" class="form-control-label">NIK</label>
+                                            <input type="text" name="nik" class="form-control-sm form-control"
+                                                value="{{ Auth::user()->nik }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="no_whatsapp" class="form-control-label">No. Whatsapp</label>
+                                            <input type="text" name="no_whatsapp" class="form-control-sm form-control"
+                                                value="{{ Auth::user()->no_whatsapp }}" disabled>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Username</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->username }}
-                                        </h5>
-                                    </div>
-                                    <div>
-                                        <label class="form-label">No. HP</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->no_hp }}
-                                        </h5>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="no_whatsapp" class="form-control-label">No. Sambungan</label>
+                                            <input type="text" name="nosamb" class="form-control-sm form-control"
+                                                value="{{ Auth::user()->nosamb }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="no_whatsapp" class="form-control-label">Alamat</label>
+                                            <textarea name="alamat" id="alamat" class="form-control-sm form-control" cols="20" rows="10" disabled>{{ Auth::user()->alamat }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12 align-self-center">
-                                    <div class="mb-3">
-                                        <label class="form-label">No. Sambungan</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->nosamb }}
-                                        </h5>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Alamat</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->alamat }}
-                                        </h5>
-                                    </div>
-                                    <div>
-                                        <label class="form-label">Akun</label>
-                                        <h5 class="fw-bold">
-                                            {{ auth()->user()->roles }}
-                                        </h5>
-                                    </div>
+                            </form>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary" data-target="#profil-{{ Auth::user()->id }}"
+                                        data-toggle="modal" data-placement="top" title="Edit">
+                                        Edit
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +66,8 @@
             </div>
         </div>
     </div>
+
+    @include('backend.pages.dashboard.modal')
 
     <script>
         var botmanWidget = {

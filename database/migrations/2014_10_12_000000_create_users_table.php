@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('nosamb')->nullable();
             $table->string('nama')->nullable();
+            $table->string('nik')->nullable();
             $table->text('alamat')->nullable();
-            $table->text('no_hp')->nullable();
+            $table->text('no_whatsapp')->nullable();
             $table->string('username')->unique();
             $table->string('password');
             $table->string('roles');

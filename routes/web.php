@@ -35,10 +35,14 @@ Route::prefix('backend')->group(function () {
     // admin
     Route::group(['middleware' => ['auth', 'OnlyAdmin'],'prefix' => 'admin'], function () {
         Route::get('/dashboard', [PelangganController::class, 'dashboard_admin'])->name('dashboard.admin');
+        // pelanggan
         Route::get('/pelanggan', [PelangganController::class, 'pelanggan'])->name('pelanggan.index');
         Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
         Route::post('/pelanggan/{id}', [PelangganController::class, 'edit_pelanggan']);
         Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
+        // end pelanggan
+
+        // pengaduan
         Route::resource('pengaduan',PengaduanController::class)->only('destroy','index','show')->names
         ([
             'index' => 'pengaduan.admin.index',
@@ -47,14 +51,23 @@ Route::prefix('backend')->group(function () {
         ]);
         Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
         Route::put('status-pengaduan-selesai/{id}',[PengaduanController::class,'update_status_selesai'])->name('update-pengaduan-selesai');
+        // end pengaduan
     });
 
     // user
     Route::group(['middleware' => ['auth', 'OnlyUser'],'prefix' => 'user'], function () {
+        #dashboard#
         Route::get('/dashboard-pelanggan', [PelangganController::class, 'dashboard_pelanggan'])->name('dashboard.user');
+        #end dashboard#
+
+        #pengaduan#
         Route::resource('pengaduan',PengaduanController::class)->except('create','edit');
+        #end pengaduan#
+
+        #profil#
+        Route::put('update-profil/{id}',[AuthController::class,'update_profil'])->name('update-profil');
+        #end profil#
     });
-    #end dashboard#
 });
 
 Route::match(['get','post'],'/botman',[BotManController::class,'handle'])->middleware('auth', 'OnlyUser');

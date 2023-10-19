@@ -44,15 +44,29 @@ class AuthController extends Controller
 
     public function register_action(Request $request)
     {
+        $request->validate([
+            'nama' => 'required',
+            'no_whatsapp' => 'required|min:10|numeric|digits:12',
+            'username' => 'required',
+            'password' => 'required',
+        ],
+    [
+        'nama.required' => 'Nama tidak boleh kosong',
+        'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
+        'no_whatsapp.min' => 'No whatsapp tidak boleh kurang dari 10 angka',
+        'no_whatsapp.digits' => 'No whatsapp tidak boleh lebih dari 12 angka',
+        'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
+        'username.required' => 'Username tidak boleh kosong',
+        'password.required' => 'Password tidak boleh kosong',
+    ]);
+
         $user = new User();
 
         $user->roles = 'user';
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->nama = $request->nama;
-        $user->nosamb = $request->nosamb;
-        $user->no_hp = $request->no_hp;
-        $user->alamat = $request->alamat;
+        $user->no_whatsapp = $request->no_whatsapp;
 
         $user->save();
         return redirect('/login')->with('pesan-success', 'Akun berhasil di buat, Tunggu akun di verifikasi oleh admin');
@@ -62,5 +76,21 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function update_profil($id,Request $request)
+    {
+        $user = User::findOrfail($id);
+        $user->update([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'no_whatsapp' => $request->no_whatsapp,
+            'nik' => $request->nik,
+            'nosamb' => $request->nosamb,
+            'alamat' => $request->alamat,
+        ]);
+
+        return redirect()->route('dashboard.user');
     }
 }
