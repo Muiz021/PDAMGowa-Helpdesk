@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id','fk_pengaduans_to_users')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('jenis_pengaduan');
             $table->string('bukti_pengaduan');
-            $table->boolean('status_pengaduan')->default(0);
+            $table->string('status_pengaduan')->default('belum_selesai');
             $table->timestamps();
         });
     }

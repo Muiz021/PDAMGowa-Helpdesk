@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use App\Models\Pengaduan;
 use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
@@ -76,16 +75,30 @@ class OnboardingConversation extends Conversation
 
     public function airTidakMengalir()
     {
-        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 0)->first();
-        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 1)->first();
+        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 'belum_selesai')->first();
+        $pengaduanProses = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 'proses')->first();
+        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 'selesai')->first();
 
         if ($pengaduan) {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Pengingat Keluhan Air Tidak Mengalir');
-            });
-            $this->say('Keluhan Air Tidak Mengalir Anda Segera Di Proses, Saya Telah Mengirimkan Email Untuk Mengingatkannya Kembali');
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Pengingat Keluhan Air Tidak Mengalir Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+
+            $this->say('Keluhan Air Tidak Mengalir Anda Segera Di Proses, Saya Telah Mengirimkan Whatsapp Ke Admin Untuk Mengingatkannya Kembali');
+        } elseif ($pengaduanProses) {
+            $this->say('Keluhan Air Tidak Mengalir Anda Sedang Di Proses');
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Air Tidak Mengalir Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
@@ -97,16 +110,29 @@ class OnboardingConversation extends Conversation
 
     public function airKeruh()
     {
-        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 0)->first();
-        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 1)->first();
+        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 'belum_selesai')->first();
+        $pengaduanProses = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 'proses')->first();
+        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 'selesai')->first();
 
         if ($pengaduan) {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Pengingat Keluhan Air Keruh');
-            });
-            $this->say('Keluhan Air Keruh Anda Segera Di Proses, Saya Telah Mengirimkan Email Untuk Mengingatkannya Kembali');
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Pengingat Keluhan Air Keruh Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+            $this->say('Keluhan Air Keruh Anda Segera Di Proses, Saya Telah Mengirimkan Whatsapp Ke Admin Untuk Mengingatkannya Kembali');
+        } elseif ($pengaduanProses) {
+            $this->say('Keluhan Air Keruh Anda Sedang Di Proses');
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Air Keruh Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
@@ -118,16 +144,29 @@ class OnboardingConversation extends Conversation
 
     public function keberatanBayar()
     {
-        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 0)->first();
-        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 1)->first();
+        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 'belum_selesai')->first();
+        $pengaduanProses = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 'proses')->first();
+        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 'selesai')->first();
 
         if ($pengaduan) {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Pengingat Keluhan Keberatan Bayar');
-            });
-            $this->say('Keluhan Keberatan Bayar Anda Segera Di Proses, Saya Telah Mengirimkan Email Untuk Mengingatkannya Kembali');
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Pengingat Keluhan Keberatan Bayar Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat.". Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+            $this->say('Keluhan Keberatan Bayar Anda Segera Di Proses, Saya Telah Mengirimkan Whatsapp Ke Admin Untuk Mengingatkannya Kembali');
+        } elseif ($pengaduanProses) {
+            $this->say('Keluhan Keberatan Bayar Anda Sedang Di Proses');
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Keberatan Bayar Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
@@ -139,16 +178,29 @@ class OnboardingConversation extends Conversation
 
     public function pembenahanSambungan()
     {
-        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 0)->first();
-        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 1)->first();
+        $pengaduan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 'belum_selesai')->first();
+        $pengaduanProses = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 'proses')->first();
+        $pengaduanSelesai = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 'selesai')->first();
 
         if ($pengaduan) {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Pengingat Keluhan Pembenahan Sambungan');
-            });
-            $this->say('Keluhan Pembenahan Sambungan Anda Segera Di Proses, Saya Telah Mengirimkan Email Untuk Mengingatkannya Kembali');
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Pengingat Keluhan Pembenahan Sambungan Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+            $this->say('Keluhan Pembenahan Sambungan Anda Segera Di Proses, Saya Telah Mengirimkan Whatsapp Ke Admin Untuk Mengingatkannya Kembali');
+        } elseif ($pengaduanProses) {
+            $this->say('Keluhan Pembenahan Sambungan Anda Sedang Di Proses');
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Pembenahan Sambungan Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {

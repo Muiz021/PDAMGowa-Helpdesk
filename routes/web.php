@@ -39,14 +39,14 @@ Route::prefix('backend')->group(function () {
         Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
         Route::post('/pelanggan/{id}', [PelangganController::class, 'edit_pelanggan']);
         Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
-        Route::resource('pengaduan',PengaduanController::class)->only('destroy','update','index','show')->names
+        Route::resource('pengaduan',PengaduanController::class)->only('destroy','index','show')->names
         ([
             'index' => 'pengaduan.admin.index',
             'show' => 'pengaduan.admin.show',
-            'update' => 'pengaduan.admin.update',
             'destroy' => 'pengaduan.admin.destroy',
         ]);
         Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
+        Route::put('status-pengaduan-selesai/{id}',[PengaduanController::class,'update_status_selesai'])->name('update-pengaduan-selesai');
     });
 
     // user

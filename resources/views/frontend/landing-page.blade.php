@@ -5,7 +5,7 @@
 
     @include('frontend.template.meta')
 
-    <title>PDAM Gowa - Helpdeck</title>
+    <title>PDAM Gowa - Helpdesk</title>
 
     @include('frontend.template.style')
 

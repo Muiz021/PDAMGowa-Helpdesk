@@ -44,33 +44,42 @@
                                         </td>
 
                                         <td>
-                                            @if ($item->status_pengaduan == 0)
-                                                <span class="status--denied">Belum Di Verifikasi</span>
-                                            @elseif ($item->status_pengaduan == 1)
-                                                <span class="status--process">Di Verifikasi</span>
+                                            @if ($item->status_pengaduan == 'belum_selesai')
+                                                <span class="status--denied">Belum Selesai</span>
+                                            @elseif ($item->status_pengaduan == 'proses')
+                                                <span style="color: goldenrod">Di Proses</span>
+                                            @elseif ($item->status_pengaduan == 'selesai')
+                                                <span class="status--process">Selesai</span>
                                             @endif
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
                                                 @if (Auth::user()->roles == 'admin')
-                                                    <form action="{{ route('update-pengaduan', $item->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('put')
-                                                        <button type="submit" class="item mr-1" data-placement="top"
-                                                            title="Verifikasi">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                    </form>
+                                                    @if ($item->status_pengaduan == 'belum_selesai')
+                                                        <form action="{{ route('update-pengaduan', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('put')
+                                                            <button type="submit" class="item mr-1" data-placement="top"
+                                                                title="Proses">
+                                                                <i class="zmdi zmdi-mail-send"></i>
+                                                            </button>
+                                                        </form>
+                                                    @elseif ($item->status_pengaduan == 'proses')
+                                                        <form action="{{ route('update-pengaduan-selesai', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('put')
+                                                            <button type="submit" class="item mr-1" data-placement="top"
+                                                                title="Selesai">
+                                                                <i class="zmdi zmdi-mail-send"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                     <a href="{{ route('pengaduan.admin.show', $item->id) }}" class="item"
                                                         data-toggle="tooltip" data-placement="top" title="Detail">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <button class="item"
-                                                        data-target="#update-pengaduan-{{ $item->id }}"
-                                                        data-toggle="modal" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
                                                     <form action="{{ route('pengaduan.admin.destroy', $item->id) }}"
                                                         method="POST">
                                                         @csrf
@@ -113,7 +122,9 @@
         </div>
     </div>
 
-    @include('backend.pages.pengaduan.model')
+    @if (auth()->user()->roles == 'user')
+        @include('backend.pages.pengaduan.model')
+    @endif
 
     @if (Auth::user()->roles == 'user')
         <script>

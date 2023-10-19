@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use App\Models\Pengaduan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 class PengaduanController extends Controller
 {
@@ -19,10 +19,22 @@ class PengaduanController extends Controller
     public function index()
     {
         $pengaduans = Pengaduan::get();
-        $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where('status_pengaduan', 0)->first();
-        $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where('status_pengaduan', 0)->first();
-        $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where('status_pengaduan', 0)->first();
-        $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where('status_pengaduan', 0)->first();
+        $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
+            $query->where('status_pengaduan', 'belum_selesai')
+                ->orWhere('status_pengaduan', 'proses');
+        })->first();
+        $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where(function ($query) {
+            $query->where('status_pengaduan', 'belum_selesai')
+                ->orWhere('status_pengaduan', 'proses');
+        })->first();
+        $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where(function ($query) {
+            $query->where('status_pengaduan', 'belum_selesai')
+                ->orWhere('status_pengaduan', 'proses');
+        })->first();
+        $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where(function ($query) {
+            $query->where('status_pengaduan', 'belum_selesai')
+                ->orWhere('status_pengaduan', 'proses');
+        })->first();
 
         return view('backend.pages.pengaduan.index', compact('pengaduans', 'airTidakMengalir', 'airKeruh', 'keberatanBayar', 'pembenahanSambungan'));
     }
@@ -63,30 +75,71 @@ class PengaduanController extends Controller
             'bukti_pengaduan' => $profileImage
         ]);
 
+        $user = Auth::user();
         if ($request->jenis_pengaduan == '1') {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Keluhan Air Tidak Mengalir');
-            });
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Ada Keluhan Air Tidak Mengalir Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
         } else if ($request->jenis_pengaduan == '2') {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Keluhan Air Tidak Keruh');
-            });
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Ada Keluhan Air Keruh Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
         } else if ($request->jenis_pengaduan == '3') {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Keluhan Keberatan Bayar');
-            });
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Ada Keluhan Keberatan Bayar Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
         } else if ($request->jenis_pengaduan == '4') {
-            Mail::send('email.pemberitahuan', ['pelanggan' => $pengaduan->user], function ($message) {
-                $emailPDAM = "bot.pdamgowa@gmail.com";
-                $message->to($emailPDAM);
-                $message->subject('Keluhan Pembenahan Sambungan');
-            });
+            $client = new Client();
+            $url = "http://35.219.124.82:8080/message";
+
+            $wa = "+6282397032649";
+            $message = "Ada Keluhan Pembenahan Sambungan Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
         }
 
         return redirect()->back();
@@ -166,7 +219,18 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findorfail($id);
         $pengaduan->update(
             [
-                'status_pengaduan' => 1
+                'status_pengaduan' => 'proses'
+            ]
+        );
+        return redirect()->back();
+    }
+
+    public function update_status_selesai($id)
+    {
+        $pengaduan = Pengaduan::findorfail($id);
+        $pengaduan->update(
+            [
+                'status_pengaduan' => 'selesai'
             ]
         );
         return redirect()->back();
