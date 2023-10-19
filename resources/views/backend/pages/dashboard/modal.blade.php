@@ -1,7 +1,7 @@
 {{-- edit --}}
 <div class="modal fade" id="profil-{{Auth::user()->id}}" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <form action="{{ route('update-profil',Auth::user()->id) }}" method="post" enctype="multipart/form-data">
                 @csrf

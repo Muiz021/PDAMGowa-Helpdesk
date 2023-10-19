@@ -52,7 +52,8 @@ class PengaduanController extends Controller
             'bukti_pengaduan' => 'required',
         ]);
 
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
+        $user_id = $user->id;
         if ($request->jenis_pengaduan == '1') {
             $jenis_pengaduan = 'air_tidak_mengalir';
         } else if ($request->jenis_pengaduan == '2') {
@@ -75,7 +76,6 @@ class PengaduanController extends Controller
             'bukti_pengaduan' => $profileImage
         ]);
 
-        $user = Auth::user();
         if ($request->jenis_pengaduan == '1') {
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
@@ -227,6 +227,23 @@ class PengaduanController extends Controller
                 'status_pengaduan' => 'proses'
             ]
         );
+
+        $client = new Client();
+        $url = "http://35.219.124.82:8080/message";
+
+        $wa = $pengaduan->user->no_whatsapp;
+        $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : 085298564285 (Adam)";
+
+        $body = [
+            'phoneNumber' => $wa,
+            'message' => $message,
+        ];
+
+        $client->request('POST', $url, [
+            'form_params' => $body,
+            'verify'  => false,
+        ]);
+
         return redirect()->back();
     }
 

@@ -44,10 +44,10 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-        <div class="page-content--bge5">
+        <div>
             <div class="container">
-                <div class="login-wrap">
-                    <div class="login-content" style="margin-top: 50px; margin-bottom:30px;">
+                <div class="login-wrap" style="margin-top: 50px; margin-bottom:50px;">
+                    <div class="login-content">
                         <div class="login-logo">
                             <a href="{{url('/login')}}">
                                 <img src="{{asset('frontend/assets/img/logo-pdam.png')}}" width="70px" alt="CoolAdmin">

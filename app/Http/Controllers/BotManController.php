@@ -102,7 +102,7 @@ class OnboardingConversation extends Conversation
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Air Tidak Mengalir Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
-            $this->say('Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk, Silahkan Input Bukti Pengaduan Di Menu Pengaduan');
+            $this->say('Silahkan Input Bukti Pengaduan Di Menu Pengaduan, Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk');
         }
 
         $this->say("Chat Kembali Ke Menu Utama, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");
@@ -136,7 +136,7 @@ class OnboardingConversation extends Conversation
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Air Keruh Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
-            $this->say('Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk, Silahkan Input Bukti Pengaduan Di Menu Pengaduan');
+            $this->say('Silahkan Input Bukti Pengaduan Di Menu Pengaduan, Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk');
         }
 
         $this->say("Chat Kembali Ke Menu Utama, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");
@@ -170,7 +170,7 @@ class OnboardingConversation extends Conversation
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Keberatan Bayar Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
-            $this->say('Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk, Silahkan Input Bukti Pengaduan Di Menu Pengaduan');
+            $this->say('Silahkan Input Bukti Pengaduan Di Menu Pengaduan, Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk');
         }
 
         $this->say("Chat Kembali Ke Menu Utama, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");
@@ -204,7 +204,7 @@ class OnboardingConversation extends Conversation
         } elseif ($pengaduanSelesai) {
             $this->say('Pengaduan Pembenahan Sambungan Anda Telah Selesai, Silahkan Input Bukti Pengaduan Di Menu Pengaduan Jika Masih Ada Keluhan Lainnya');
         } else {
-            $this->say('Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk, Silahkan Input Bukti Pengaduan Di Menu Pengaduan');
+            $this->say('Silahkan Input Bukti Pengaduan Di Menu Pengaduan, Terima Kasih Telah Menghubungi PDAM Gowa Helpdesk');
         }
 
         $this->say("Chat Kembali Ke Menu Utama, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");

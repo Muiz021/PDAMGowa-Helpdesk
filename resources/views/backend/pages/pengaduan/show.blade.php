@@ -1,5 +1,6 @@
 @extends('backend.app')
 
+@section('title', 'Pengaduan')
 
 @section('content')
     <div class="section__content section__content--p30">
