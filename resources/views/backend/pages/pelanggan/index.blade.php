@@ -20,7 +20,7 @@
                                     <th>No. Samb</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
-                                    <th>No. Hp</th>
+                                    <th>No. Whatsapp</th>
                                     <th>Status Akun</th>
                                     <th></th>
                                 </tr>
@@ -34,7 +34,7 @@
                                         </td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->alamat }}</td>
-                                        <td>{{ $item->no_hp }}</td>
+                                        <td>{{ $item->no_whatsapp }}</td>
                                         <td>
                                             @if ($item->is_verification == 0)
                                                 <span class="status--denied">Belum Di Verifikasi</span>
