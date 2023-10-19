@@ -11,6 +11,10 @@
     <!-- Title Page-->
     <title>Register</title>
 
+        <!-- Favicons -->
+        <link href="{{ asset('frontend/assets/img/logo-pdam.png') }}" rel="icon">
+        <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
     <!-- Fontfaces CSS-->
     <link href="{{ asset('backend/css/font-face.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('backend/vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet"

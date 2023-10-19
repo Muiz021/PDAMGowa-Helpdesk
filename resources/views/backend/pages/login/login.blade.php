@@ -6,11 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
     <title>Login</title>
+
+        <!-- Favicons -->
+        <link href="{{ asset('frontend/assets/img/logo-pdam.png') }}" rel="icon">
+        <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fontfaces CSS-->
     <link href="backend/css/font-face.css" rel="stylesheet" media="all">
