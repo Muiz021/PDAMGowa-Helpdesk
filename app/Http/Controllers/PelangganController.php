@@ -12,7 +12,7 @@ class PelangganController extends Controller
     public function dashboard_admin()
     {
         $pelanggan = User::where('roles', '=', 'user')->get();
-        $pengaduan = Pengaduan::get();
+        $pengaduan = Pengaduan::with('user')->get();
         return view('backend.pages.dashboard.dashboard', compact('pelanggan','pengaduan'));
     }
 

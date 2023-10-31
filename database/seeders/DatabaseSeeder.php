@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Muiz',
                 'nosamb' => '123',
-                'no_whatsapp' => '081222343598',
+                'no_whatsapp' => '081343671284',
                 'alamat' => 'Samata',
                 'is_verification' => true,
                 'username' => 'user',

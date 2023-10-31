@@ -19,7 +19,7 @@ class BotManController extends Controller
             if ($message == '1') {
                 $bot->startConversation(new OnboardingConversation);
             } elseif ($message == '2') {
-                $bot->reply('<a href="https://wa.me/6282397032649?text=Hi+Admin.+Saya+ingin+bertanya+mengenai+PDAM" target="blank_">Klik Link Ini Untuk Memulai Chat Whatsapp</a>');
+                $bot->reply('<a href="https://wa.me/6287853444186?text=Hi+Admin.+Saya+ingin+bertanya+mengenai+PDAM" target="blank_">Klik Link Ini Untuk Memulai Chat Whatsapp</a>');
                 $bot->reply("Chat Kembali Ke Menu Utama, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");
             } else {
                 $bot->reply("Pilihan Anda Salah, Ketik : <br> 1. Mulai Chat Bot <br> 2. Mulai Chat Whatsapp");
@@ -83,7 +83,7 @@ class OnboardingConversation extends Conversation
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Pengingat Keluhan Air Tidak Mengalir Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -118,7 +118,7 @@ class OnboardingConversation extends Conversation
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Pengingat Keluhan Air Keruh Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -152,7 +152,7 @@ class OnboardingConversation extends Conversation
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Pengingat Keluhan Keberatan Bayar Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat.". Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -186,7 +186,7 @@ class OnboardingConversation extends Conversation
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Pengingat Keluhan Pembenahan Sambungan Dari ".auth()->user()->nama." Dengan Nomor Sambungan ".auth()->user()->nosamb." Di Alamat ".auth()->user()->alamat." Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [

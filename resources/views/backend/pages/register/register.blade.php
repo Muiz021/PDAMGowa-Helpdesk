@@ -46,7 +46,7 @@
     <div class="page-wrapper">
         <div>
             <div class="container">
-                <div class="login-wrap" style="margin-top: 50px; margin-bottom:50px;">
+                <div class="login-wrap" style="margin-top: 50px; margin-bottom:100px;">
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="{{url('/login')}}">

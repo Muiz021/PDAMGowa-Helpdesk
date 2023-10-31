@@ -80,7 +80,7 @@ class PengaduanController extends Controller
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Ada Keluhan Air Tidak Mengalir Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -96,7 +96,7 @@ class PengaduanController extends Controller
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Ada Keluhan Air Keruh Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -112,7 +112,7 @@ class PengaduanController extends Controller
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Ada Keluhan Keberatan Bayar Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -128,7 +128,7 @@ class PengaduanController extends Controller
             $client = new Client();
             $url = "http://35.219.124.82:8080/message";
 
-            $wa = "+6282397032649";
+            $wa = "+6287853444186";
             $message = "Ada Keluhan Pembenahan Sambungan Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya";
 
             $body = [
@@ -222,6 +222,24 @@ class PengaduanController extends Controller
     public function update_status($id)
     {
         $pengaduan = Pengaduan::findorfail($id);
+        $noAdmin = [
+            [
+                'nama' => 'Imrha',
+                'nowa' => '085723906247',
+            ],
+            [
+                'nama' => 'Wiah',
+                'nowa' => '082347755579',
+            ],
+            [
+                'nama' => 'Kiky',
+                'nowa' => '085341042607',
+            ],
+            [
+                'nama' => 'Taufan',
+                'nowa' => '081355548388',
+            ],
+        ];
         $pengaduan->update(
             [
                 'status_pengaduan' => 'proses'
@@ -232,8 +250,16 @@ class PengaduanController extends Controller
         $url = "http://35.219.124.82:8080/message";
 
         $wa = $pengaduan->user->no_whatsapp;
-        $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : 085298564285 (Adam)";
-
+        $message = '';
+        if($pengaduan->jenis_pengaduan == "air_tidak_mengalir"){
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[0]['nowa']." (".$noAdmin[0]['nama'].")";
+        }else if($pengaduan->jenis_pengaduan == "air_keruh"){
+            "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[1]['nowa']." (".$noAdmin[1]['nama'].")";
+        }else if($pengaduan->jenis_pengaduan == "keberatan_bayar"){
+            $message =  "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[2]['nowa']." (".$noAdmin[2]['nama'].")";
+        }else if($pengaduan->jenis_pengaduan == "pembenahan_sambungan"){
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[3]['nowa']." (".$noAdmin[3]['nama'].")";
+        };
         $body = [
             'phoneNumber' => $wa,
             'message' => $message,

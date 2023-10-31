@@ -96,6 +96,7 @@
                                                         data-toggle="tooltip" data-placement="top" title="Detail">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    @if ($item->status_pengaduan == 'belum_selesai')
                                                     <button class="item"
                                                         data-target="#update-pengaduan-{{ $item->id }}"
                                                         data-toggle="modal" data-placement="top" title="Edit">
@@ -110,6 +111,7 @@
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </button>
                                                     </form>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>
