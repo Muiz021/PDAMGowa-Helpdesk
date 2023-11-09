@@ -18,23 +18,44 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        $pengaduans = Pengaduan::get();
-        $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
-            $query->where('status_pengaduan', 'belum_selesai')
-                ->orWhere('status_pengaduan', 'proses');
-        })->first();
-        $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where(function ($query) {
-            $query->where('status_pengaduan', 'belum_selesai')
-                ->orWhere('status_pengaduan', 'proses');
-        })->first();
-        $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where(function ($query) {
-            $query->where('status_pengaduan', 'belum_selesai')
-                ->orWhere('status_pengaduan', 'proses');
-        })->first();
-        $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where(function ($query) {
-            $query->where('status_pengaduan', 'belum_selesai')
-                ->orWhere('status_pengaduan', 'proses');
-        })->first();
+        $user = Auth::user();
+        if ($user->roles == 'admin') {
+            $pengaduans = Pengaduan::get();
+            $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+        } else {
+            $pengaduans = Pengaduan::where('user_id', $user->id)->get();
+            $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $airKeruh = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_keruh')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $keberatanBayar = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'keberatan_bayar')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+            $pembenahanSambungan = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'pembenahan_sambungan')->where(function ($query) {
+                $query->where('status_pengaduan', 'belum_selesai')
+                    ->orWhere('status_pengaduan', 'proses');
+            })->first();
+        }
 
         return view('backend.pages.pengaduan.index', compact('pengaduans', 'airTidakMengalir', 'airKeruh', 'keberatanBayar', 'pembenahanSambungan'));
     }
@@ -251,14 +272,14 @@ class PengaduanController extends Controller
 
         $wa = $pengaduan->user->no_whatsapp;
         $message = '';
-        if($pengaduan->jenis_pengaduan == "air_tidak_mengalir"){
-            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[0]['nowa']." (".$noAdmin[0]['nama'].")";
-        }else if($pengaduan->jenis_pengaduan == "air_keruh"){
-            "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[1]['nowa']." (".$noAdmin[1]['nama'].")";
-        }else if($pengaduan->jenis_pengaduan == "keberatan_bayar"){
-            $message =  "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[2]['nowa']." (".$noAdmin[2]['nama'].")";
-        }else if($pengaduan->jenis_pengaduan == "pembenahan_sambungan"){
-            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : ".$noAdmin[3]['nowa']." (".$noAdmin[3]['nama'].")";
+        if ($pengaduan->jenis_pengaduan == "air_tidak_mengalir") {
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[0]['nowa'] . " (" . $noAdmin[0]['nama'] . ")";
+        } else if ($pengaduan->jenis_pengaduan == "air_keruh") {
+            "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[1]['nowa'] . " (" . $noAdmin[1]['nama'] . ")";
+        } else if ($pengaduan->jenis_pengaduan == "keberatan_bayar") {
+            $message =  "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[2]['nowa'] . " (" . $noAdmin[2]['nama'] . ")";
+        } else if ($pengaduan->jenis_pengaduan == "pembenahan_sambungan") {
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[3]['nowa'] . " (" . $noAdmin[3]['nama'] . ")";
         };
         $body = [
             'phoneNumber' => $wa,
