@@ -40,6 +40,7 @@ Route::prefix('backend')->group(function () {
         Route::get('/pelanggan/{id}', [PelangganController::class, 'hapus_pelanggan']);
         Route::post('/pelanggan/{id}', [PelangganController::class, 'edit_pelanggan']);
         Route::get('/updatestatus/{id}', [PelangganController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/kiriminfo', [PelangganController::class, 'kirimInfo'])->name('kirimInfo');
         // end pelanggan
 
         // pengaduan

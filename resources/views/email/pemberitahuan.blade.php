@@ -5,7 +5,7 @@
     <br>
     Nomor Sambungan : {{ $pelanggan->nosamb }}
     <br>
-    Nomor HP : {{ $pelanggan->no_hp }}
+    Nomor HP : {{ $pelanggan->no_whatsapp }}
     <br>
     Alamat : {{ $pelanggan->alamat }}
     <br>
