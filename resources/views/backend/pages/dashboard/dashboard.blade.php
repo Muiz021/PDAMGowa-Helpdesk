@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="text">
                                     <h2>{{ $pengaduan->count() }}</h2>
-                                    <span>Pengaduan</span>
+                                    <span>Total Pengaduan</span>
                                 </div>
                             </div>
                             <div class="overview-chart">
@@ -70,7 +70,7 @@
                                     <i class="zmdi zmdi-account-o"></i>
                                 </div>
                                 <div class="text">
-                                    <h2>{{$pengaduan->count('status_pengaduan' == 'proses')}}</h2>
+                                    <h2>{{$pengaduan->where('status_pengaduan', 'proses')->count()}}</h2>
                                     <span>Total Pengaduan Belum Diproses</span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                     <i class="zmdi zmdi-account-o"></i>
                                 </div>
                                 <div class="text">
-                                    <h2>{{$pengaduan->count('status_pengaduan' == 'belum_selesai')}}</h2>
+                                    <h2>{{$pengaduan->where('status_pengaduan' == 'belum_selesai')->count()}}</h2>
                                     <span>Total Pengaduan Belum Selesai</span>
                                 </div>
                             </div>
