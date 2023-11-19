@@ -24,6 +24,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    @if (Auth::user()->roles == 'admin')
+                                        <th>Pelanggan</th>
+                                    @endif
                                     <th>Jenis Pengaduan</th>
                                     <th>Status</th>
                                     <th></th>
@@ -33,6 +36,9 @@
                                 @foreach ($pengaduans as $item)
                                     <tr class="tr-shadow">
                                         <td>{{ $loop->iteration }}</td>
+                                        @if (Auth::user()->roles == 'admin')
+                                            <td>{{ $item->user->nama }}</td>
+                                        @endif
                                         <td>
                                             @if ($item->jenis_pengaduan == 'air_tidak_mengalir')
                                                 Air Tidak Mengalir
@@ -97,20 +103,20 @@
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     @if ($item->status_pengaduan == 'belum_selesai')
-                                                    <button class="item"
-                                                        data-target="#update-pengaduan-{{ $item->id }}"
-                                                        data-toggle="modal" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <form action="{{ route('pengaduan.destroy', $item->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="item" data-placement="top"
-                                                            title="Hapus">
-                                                            <i class="zmdi zmdi-delete"></i>
+                                                        <button class="item"
+                                                            data-target="#update-pengaduan-{{ $item->id }}"
+                                                            data-toggle="modal" data-placement="top" title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
                                                         </button>
-                                                    </form>
+                                                        <form action="{{ route('pengaduan.destroy', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="item" data-placement="top"
+                                                                title="Hapus">
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </button>
+                                                        </form>
                                                     @endif
                                                 @endif
                                             </div>

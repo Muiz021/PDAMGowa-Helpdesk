@@ -20,7 +20,7 @@ class PengaduanController extends Controller
     {
         $user = Auth::user();
         if ($user->roles == 'admin') {
-            $pengaduans = Pengaduan::get();
+            $pengaduans = Pengaduan::with('user')->get();
             $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
                 $query->where('status_pengaduan', 'belum_selesai')
                     ->orWhere('status_pengaduan', 'proses');
@@ -56,7 +56,6 @@ class PengaduanController extends Controller
                     ->orWhere('status_pengaduan', 'proses');
             })->first();
         }
-
         return view('backend.pages.pengaduan.index', compact('pengaduans', 'airTidakMengalir', 'airKeruh', 'keberatanBayar', 'pembenahanSambungan'));
     }
 
