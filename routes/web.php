@@ -31,7 +31,6 @@ Route::post('/login', [AuthController::class, 'login_action'])->name('login.acti
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'register_action'])->name('register.action');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-// Route::get('/tes-pdf', [PDFController::class, 'exportPDF'])->name('export-pdf');
 
 Route::prefix('backend')->group(function () {
     // admin
