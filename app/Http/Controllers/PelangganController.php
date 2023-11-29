@@ -31,6 +31,24 @@ class PelangganController extends Controller
 
     public function edit_pelanggan($id, Request $request)
     {
+        $request->validate(
+            [
+                'nama' => 'required',
+                'no_whatsapp' => 'nullable|numeric|digits_between:10,13|unique:users,no_whatsapp,'.$id,
+                'nosamb' => 'nullable|numeric|digits_between:0,10',
+                'alamat' => 'nullable',
+            ],
+            [
+                'nama.required' => 'Nama tidak boleh kosong',
+                'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
+                'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
+                'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
+                'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
+                'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
+                'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
+            ]
+        );
+
         $user = User::Where('id', $id)->first();
 
         $user->nama = $request->nama;

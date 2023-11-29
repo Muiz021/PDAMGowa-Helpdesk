@@ -15,6 +15,11 @@
                     <div class="card">
                         <div class="card-header">Profil User</div>
                         <div class="card-body">
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $err)
+                                    <p class="alert alert-danger">{{ $err }}</p>
+                                @endforeach
+                            @endif
                             <form action="#" method="post" novalidate="novalidate" @disabled(true)>
                                 <div class="d-flex">
                                     <div class="col-lg-6">

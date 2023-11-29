@@ -115,6 +115,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $err)
+                                    <p class="alert alert-danger">{{ $err }}</p>
+                                @endforeach
+                            @endif
                             <div class="form-group">
                                 <label for="nosamb" class="form-control-label">No. Samb</label>
                                 <input type="text" id="nosamb" name="nosamb" value="{{ $item->nosamb }}"

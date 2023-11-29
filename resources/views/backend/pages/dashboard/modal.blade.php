@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="no_whatsapp" class="form-control-label">No. Sambungan</label>
-                        <input type="text" name="nosamb" class="form-control-sm form-control">
+                        <input type="text" name="nosamb" class="form-control-sm form-control" value="{{Auth::user()->nosamb}}">
                     </div>
                     <div class="form-group">
                         <label for="no_whatsapp" class="form-control-label">Alamat</label>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->string('nik')->nullable();
             $table->text('alamat')->nullable();
-            $table->text('no_whatsapp')->nullable();
+            $table->text('no_whatsapp')->unique()->nullable();
             $table->string('username')->unique();
             $table->string('password');
             $table->string('roles');

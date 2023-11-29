@@ -44,21 +44,24 @@ class AuthController extends Controller
 
     public function register_action(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'no_whatsapp' => 'required|min:10|numeric|digits:12',
-            'username' => 'required',
-            'password' => 'required',
-        ],
-    [
-        'nama.required' => 'Nama tidak boleh kosong',
-        'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
-        'no_whatsapp.min' => 'No whatsapp tidak boleh kurang dari 10 angka',
-        'no_whatsapp.digits' => 'No whatsapp tidak boleh lebih dari 12 angka',
-        'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
-        'username.required' => 'Username tidak boleh kosong',
-        'password.required' => 'Password tidak boleh kosong',
-    ]);
+        $request->validate(
+            [
+                'nama' => 'required',
+                'no_whatsapp' => 'required|numeric|digits_between:10,13|unique:users',
+                'username' => 'required|unique:users',
+                'password' => 'required',
+            ],
+            [
+                'nama.required' => 'Nama tidak boleh kosong',
+                'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
+                'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
+                'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
+                'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
+                'username.required' => 'Username tidak boleh kosong',
+                'username.unique' => 'Username sudah digunakan oleh pengguna lain',
+                'password.required' => 'Password tidak boleh kosong',
+            ]
+        );
 
         $user = new User();
 
@@ -78,8 +81,34 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    public function update_profil($id,Request $request)
+    public function update_profil($id, Request $request)
     {
+        $request->validate(
+            [
+                'nama' => 'required',
+                'no_whatsapp' => 'required|numeric|digits_between:10,13|unique:users,no_whatsapp,'.$id,
+                'username' => 'required|unique:users,username,'.$id,
+                'password' => 'nullable',
+                'nik' => 'nullable|numeric|digits_between:0,16|unique:users,nik,'.$id,
+                'nosamb' => 'nullable|numeric|digits_between:0,10',
+                'alamat' => 'nullable',
+            ],
+            [
+                'nama.required' => 'Nama tidak boleh kosong',
+                'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
+                'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
+                'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
+                'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
+                'username.required' => 'Username tidak boleh kosong',
+                'username.unique' => 'Username sudah digunakan oleh pengguna lain',
+                'nik.numeric' => 'NIK harus menggunakan angka',
+                'nik.digits_between' => 'NIK tidak boleh lebih dari 16 digit',
+                'nik.unique' => 'NIK sudah digunakan oleh pengguna lain',
+                'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
+                'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
+            ]
+        );
+
         $user = User::findOrfail($id);
         $user->update([
             'nama' => $request->nama,
