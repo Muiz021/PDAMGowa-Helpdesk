@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PelangganController extends Controller
 {
@@ -20,6 +21,9 @@ class PelangganController extends Controller
     public function dashboard_pelanggan()
     {
         $user = Auth::user();
+        if($user->nik == null || $user->nosamb == null || $user->alamat == null || $user->no_whatsapp == null){
+        Alert::info("Info", "Silahkan lengkapi data diri terlebih dahulu");
+        }
         return view('backend.pages.dashboard.dashboardpelanggan', compact('user'));
     }
 

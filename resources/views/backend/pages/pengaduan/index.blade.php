@@ -18,24 +18,34 @@
                         <div class="table-data__tool-left">
                             <h3 class="title-5 m-b-35">Data Pengaduan</h3>
                         </div>
+                        @if (Auth::user()->roles == 'admin')
+                        <div class="table-data__tool-right">
+                            <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#export-pdf">
+                                export pdf</button>
+                        </div>
+                        @endif
                     </div>
                     <div class="table-responsive table-responsive-data2">
                         <table class="table table-data2">
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Tanggal Pengaduan</th>
                                     @if (Auth::user()->roles == 'admin')
                                         <th>Pelanggan</th>
                                     @endif
                                     <th>Jenis Pengaduan</th>
                                     <th>Status</th>
-                                    <th></th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($pengaduans as $item)
                                     <tr class="tr-shadow">
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            {{$item->tanggal}}
+                                        </td>
                                         @if (Auth::user()->roles == 'admin')
                                             <td>{{ $item->user->nama }}</td>
                                         @endif
@@ -132,9 +142,7 @@
         </div>
     </div>
 
-    @if (auth()->user()->roles == 'user')
-        @include('backend.pages.pengaduan.model')
-    @endif
+    @include('backend.pages.pengaduan.model')
 
     @if (Auth::user()->roles == 'user')
         <script>

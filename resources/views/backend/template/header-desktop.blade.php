@@ -11,18 +11,18 @@
                                 <img src="{{asset('backend/images/icon/avatar-01.jpg')}}" alt="John Doe" />
                             </div>
                             <div class="content">
-                                <a class="js-acc-btn" href="#">{{ auth()->user()->nama }}</a>
+                                <a class="js-acc-btn" href="{{Auth::user()->roles == 'admin' ? route('dashboard.admin') : route('dashboard.user')}}">{{ auth()->user()->nama }}</a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">
                                     <div class="image">
-                                        <a href="#">
+                                        <a href="{{Auth::user()->roles == 'admin' ? route('dashboard.admin') : route('dashboard.user')}}">
                                             <img src="{{asset('backend/images/icon/avatar-01.jpg')}}" alt="John Doe" />
                                         </a>
                                     </div>
                                     <div class="content">
                                         <h5 class="name">
-                                            <a href="#">{{ auth()->user()->nama }}</a>
+                                            <a href="{{Auth::user()->roles == 'admin' ? route('dashboard.admin') : route('dashboard.user')}}">{{ auth()->user()->nama }}</a>
                                         </h5>
                                         <span class="email">{{ auth()->user()->username }}</span>
                                     </div>

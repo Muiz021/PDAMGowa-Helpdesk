@@ -83,42 +83,48 @@ class AuthController extends Controller
 
     public function update_profil($id, Request $request)
     {
-        $request->validate(
-            [
-                'nama' => 'required',
-                'no_whatsapp' => 'required|numeric|digits_between:10,13|unique:users,no_whatsapp,'.$id,
-                'username' => 'required|unique:users,username,'.$id,
-                'password' => 'nullable',
-                'nik' => 'nullable|numeric|digits_between:0,16|unique:users,nik,'.$id,
-                'nosamb' => 'nullable|numeric|digits_between:0,10',
-                'alamat' => 'nullable',
-            ],
-            [
-                'nama.required' => 'Nama tidak boleh kosong',
-                'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
-                'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
-                'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
-                'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
-                'username.required' => 'Username tidak boleh kosong',
-                'username.unique' => 'Username sudah digunakan oleh pengguna lain',
-                'nik.numeric' => 'NIK harus menggunakan angka',
-                'nik.digits_between' => 'NIK tidak boleh lebih dari 16 digit',
-                'nik.unique' => 'NIK sudah digunakan oleh pengguna lain',
-                'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
-                'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
-            ]
-        );
+        $request->validate([
+            'nama' => 'required',
+            'no_whatsapp' => 'required|numeric|digits_between:10,13|unique:users,no_whatsapp,' . $id,
+            'username' => 'required|unique:users,username,' . $id,
+            'password' => 'nullable', // Allow the password to be nullable
+            'nik' => 'nullable|numeric|digits_between:0,16|unique:users,nik,' . $id,
+            'nosamb' => 'nullable|numeric|digits_between:0,10',
+            'alamat' => 'nullable',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
+            'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
+            'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
+            'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
+            'username.required' => 'Username tidak boleh kosong',
+            'username.unique' => 'Username sudah digunakan oleh pengguna lain',
+            'nik.numeric' => 'NIK harus menggunakan angka',
+            'nik.digits_between' => 'NIK tidak boleh lebih dari 16 digit',
+            'nik.unique' => 'NIK sudah digunakan oleh pengguna lain',
+            'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
+            'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
+        ]);
 
-        $user = User::findOrfail($id);
-        $user->update([
+        $user = User::findOrFail($id);
+
+        // Update user data
+        $userData = [
             'nama' => $request->nama,
             'username' => $request->username,
-            'password' => Hash::make($request->password),
             'no_whatsapp' => $request->no_whatsapp,
             'nik' => $request->nik,
             'nosamb' => $request->nosamb,
             'alamat' => $request->alamat,
-        ]);
+        ];
+
+        // Check if a new password is provided
+        if ($request->filled('password')) {
+            // Hash and update the password
+            $userData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($userData);
 
         return redirect()->route('dashboard.user');
     }

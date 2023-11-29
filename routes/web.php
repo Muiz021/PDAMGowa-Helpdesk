@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PelangganController;
@@ -30,6 +31,7 @@ Route::post('/login', [AuthController::class, 'login_action'])->name('login.acti
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'register_action'])->name('register.action');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('/tes-pdf', [PDFController::class, 'exportPDF'])->name('export-pdf');
 
 Route::prefix('backend')->group(function () {
     // admin
@@ -53,6 +55,10 @@ Route::prefix('backend')->group(function () {
         Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
         Route::put('status-pengaduan-selesai/{id}',[PengaduanController::class,'update_status_selesai'])->name('update-pengaduan-selesai');
         // end pengaduan
+
+        // export pdf
+        Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export-pdf');
+
     });
 
     // user
@@ -72,4 +78,7 @@ Route::prefix('backend')->group(function () {
 });
 
 Route::match(['get','post'],'/botman',[BotManController::class,'handle'])->middleware('auth', 'OnlyUser');
+
+
+
 

@@ -20,7 +20,7 @@ class PengaduanController extends Controller
     {
         $user = Auth::user();
         if ($user->roles == 'admin') {
-            $pengaduans = Pengaduan::with('user')->get();
+            $pengaduans = Pengaduan::with('user')->orderBy('tanggal','asc')->get();
             $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
                 $query->where('status_pengaduan', 'belum_selesai')
                     ->orWhere('status_pengaduan', 'proses');
@@ -38,7 +38,7 @@ class PengaduanController extends Controller
                     ->orWhere('status_pengaduan', 'proses');
             })->first();
         } else {
-            $pengaduans = Pengaduan::where('user_id', $user->id)->get();
+            $pengaduans = Pengaduan::where('user_id', $user->id)->orderBy('tanggal','asc')->get();
             $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
                 $query->where('status_pengaduan', 'belum_selesai')
                     ->orWhere('status_pengaduan', 'proses');
@@ -90,10 +90,12 @@ class PengaduanController extends Controller
         $profileImage = $baseURL . "/images/" . Str::slug($jenis_pengaduan) . '-' . Carbon::now()->format('YmdHis') . "." . $foto->getClientOriginalExtension();
         $foto->move($destinationPath, $profileImage);
 
+        $today = Carbon::now()->format('Y-m-d');
         $pengaduan = Pengaduan::create([
             'user_id' => $user_id,
             'jenis_pengaduan' => $jenis_pengaduan,
-            'bukti_pengaduan' => $profileImage
+            'bukti_pengaduan' => $profileImage,
+            'tanggal' => $today
         ]);
 
         if ($request->jenis_pengaduan == '1') {
