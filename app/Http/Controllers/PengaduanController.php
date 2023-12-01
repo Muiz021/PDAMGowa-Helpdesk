@@ -276,9 +276,9 @@ class PengaduanController extends Controller
         if ($pengaduan->jenis_pengaduan == "air_tidak_mengalir") {
             $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[0]['nowa'] . " (" . $noAdmin[0]['nama'] . ")";
         } else if ($pengaduan->jenis_pengaduan == "air_keruh") {
-            "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[1]['nowa'] . " (" . $noAdmin[1]['nama'] . ")";
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[1]['nowa'] . " (" . $noAdmin[1]['nama'] . ")";
         } else if ($pengaduan->jenis_pengaduan == "keberatan_bayar") {
-            $message =  "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[2]['nowa'] . " (" . $noAdmin[2]['nama'] . ")";
+            $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[2]['nowa'] . " (" . $noAdmin[2]['nama'] . ")";
         } else if ($pengaduan->jenis_pengaduan == "pembenahan_sambungan") {
             $message = "Keluhan Anda Masuk Ke Dalam Tahap Proses, Silahkan Hubungi Kontak Whatsapp Ini Agar Terhubung Dengan Petugas Yang Akan Mengatasi Keluhan Anda\n\nNo Whatsapp : " . $noAdmin[3]['nowa'] . " (" . $noAdmin[3]['nama'] . ")";
         };
