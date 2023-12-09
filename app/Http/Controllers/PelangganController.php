@@ -38,7 +38,7 @@ class PelangganController extends Controller
         $request->validate(
             [
                 'nama' => 'required',
-                'no_whatsapp' => 'nullable|numeric|digits_between:10,13|unique:users,no_whatsapp,'.$id,
+                'no_whatsapp' => 'nullable|numeric|digits_between:10,13|unique:users,no_whatsapp,' . $id,
                 'nosamb' => 'nullable|numeric|digits_between:0,10',
                 'alamat' => 'nullable',
             ],
@@ -79,7 +79,7 @@ class PelangganController extends Controller
         ]);
 
         $client = new Client();
-        $url = "http://35.219.124.82:8080/message";
+        $url = "http://8.215.24.202/message";
 
         $wa = $user->no_whatsapp;
         $message = "Akun Anda Telah Di Verifikasi Oleh Admin PDAM";
@@ -100,7 +100,7 @@ class PelangganController extends Controller
     public function kirimInfo(Request $request)
     {
         $client = new Client();
-        $url = "http://35.219.124.82:8080/message";
+        $url = "http://8.215.24.202/message";
 
         $user = User::where('roles', 'user')->get();
 

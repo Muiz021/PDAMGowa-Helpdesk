@@ -100,10 +100,10 @@ class PengaduanController extends Controller
 
         if ($request->jenis_pengaduan == '1') {
             $client = new Client();
-            $url = "http://35.219.124.82:8080/message";
+            $url = "http://8.215.24.202/message";
 
             $wa = "+6287853444186";
-            $message = "Ada Keluhan Air Tidak Mengalir Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: ".route('login');
+            $message = "Ada Keluhan Air Tidak Mengalir Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
 
             $body = [
                 'phoneNumber' => $wa,
@@ -116,10 +116,10 @@ class PengaduanController extends Controller
             ]);
         } else if ($request->jenis_pengaduan == '2') {
             $client = new Client();
-            $url = "http://35.219.124.82:8080/message";
+            $url = "http://8.215.24.202/message";
 
             $wa = "+6287853444186";
-            $message = "Ada Keluhan Air Keruh Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: ".route('login');
+            $message = "Ada Keluhan Air Keruh Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
 
             $body = [
                 'phoneNumber' => $wa,
@@ -132,10 +132,10 @@ class PengaduanController extends Controller
             ]);
         } else if ($request->jenis_pengaduan == '3') {
             $client = new Client();
-            $url = "http://35.219.124.82:8080/message";
+            $url = "http://8.215.24.202/message";
 
             $wa = "+6287853444186";
-            $message = "Ada Keluhan Keberatan Bayar Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: ".route('login');
+            $message = "Ada Keluhan Keberatan Bayar Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
 
             $body = [
                 'phoneNumber' => $wa,
@@ -148,10 +148,10 @@ class PengaduanController extends Controller
             ]);
         } else if ($request->jenis_pengaduan == '4') {
             $client = new Client();
-            $url = "http://35.219.124.82:8080/message";
+            $url = "http://8.215.24.202/message";
 
             $wa = "+6287853444186";
-            $message = "Ada Keluhan Pembenahan Sambungan Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: ".route('login');
+            $message = "Ada Keluhan Pembenahan Sambungan Dari " . $user->nama . " Dengan Nomor Sambungan " . $user->nosamb . " Di Alamat " . $user->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
 
             $body = [
                 'phoneNumber' => $wa,
@@ -269,7 +269,7 @@ class PengaduanController extends Controller
         );
 
         $client = new Client();
-        $url = "http://35.219.124.82:8080/message";
+        $url = "http://8.215.24.202/message";
 
         $wa = $pengaduan->user->no_whatsapp;
         $message = '';
