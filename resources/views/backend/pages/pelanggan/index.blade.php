@@ -121,11 +121,6 @@
                                 @endforeach
                             @endif
                             <div class="form-group">
-                                <label for="nosamb" class="form-control-label">No. Samb</label>
-                                <input type="text" id="nosamb" name="nosamb" value="{{ $item->nosamb }}"
-                                    class="form-control">
-                            </div>
-                            <div class="form-group">
                                 <label for="nama" class="form-control-label">Nama</label>
                                 <input type="text" id="nama" name="nama" value="{{ $item->nama }}"
                                     class="form-control">

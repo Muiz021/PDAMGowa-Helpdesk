@@ -21,8 +21,8 @@ class PelangganController extends Controller
     public function dashboard_pelanggan()
     {
         $user = Auth::user();
-        if($user->nik == null || $user->nosamb == null || $user->alamat == null || $user->no_whatsapp == null){
-        Alert::info("Info", "Silahkan lengkapi data diri terlebih dahulu");
+        if ($user->nik == null || $user->alamat == null || $user->no_whatsapp == null) {
+            Alert::info("Info", "Silahkan lengkapi data diri terlebih dahulu");
         }
         return view('backend.pages.dashboard.dashboardpelanggan', compact('user'));
     }
@@ -39,7 +39,6 @@ class PelangganController extends Controller
             [
                 'nama' => 'required',
                 'no_whatsapp' => 'nullable|numeric|digits_between:10,13|unique:users,no_whatsapp,' . $id,
-                'nosamb' => 'nullable|numeric|digits_between:0,10',
                 'alamat' => 'nullable',
             ],
             [
@@ -48,15 +47,12 @@ class PelangganController extends Controller
                 'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
                 'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
                 'no_whatsapp.unique' => 'No whatsapp sudah digunakan oleh pengguna lain',
-                'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
-                'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
             ]
         );
 
         $user = User::Where('id', $id)->first();
 
         $user->nama = $request->nama;
-        $user->nosamb = $request->nosamb;
         $user->no_whatsapp = $request->no_whatsapp;
         $user->alamat = $request->alamat;
 
@@ -74,9 +70,31 @@ class PelangganController extends Controller
     public function updateStatus($id)
     {
         $user = User::findorfail($id);
+
         $user->update([
             "is_verification" => true
         ]);
+
+        $nosamb = User::where('roles', 'user')->where('nosamb', $user->nosamb)->where('is_verification', false)->get();
+        foreach ($nosamb as $item) {
+            $client = new Client();
+            $url = "http://8.215.24.202/message";
+
+            $wa = $item->no_whatsapp;
+            $message = "Verifikasi anda gagal. No. Sambungan telah digunakan, Silahkan Gunakan No. Sambungan Lain";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+
+            $item->delete();
+        }
 
         $client = new Client();
         $url = "http://8.215.24.202/message";

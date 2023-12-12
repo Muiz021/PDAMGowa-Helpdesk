@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -44,15 +45,41 @@ class AuthController extends Controller
 
     public function register_action(Request $request)
     {
+        $nosamb = User::where('roles', 'user')->where('nosamb', $request->nosamb)->where('is_verification', true)->first();
+
+        if ($nosamb) {
+            $client = new Client();
+            $url = "http://8.215.24.202/message";
+
+            $wa = $request->no_whatsapp;
+            $message = "No. Sambungan telah digunakan, Silahkan Gunakan No. Sambungan Lain";
+
+            $body = [
+                'phoneNumber' => $wa,
+                'message' => $message,
+            ];
+
+            $client->request('POST', $url, [
+                'form_params' => $body,
+                'verify'  => false,
+            ]);
+
+            return redirect()->back()->with('pesan-danger', 'No. Sambungan telah digunakan');
+        }
+
         $request->validate(
             [
                 'nama' => 'required',
+                'nosamb' => 'required|numeric|digits_between:0,10',
                 'no_whatsapp' => 'required|numeric|digits_between:10,13|unique:users',
                 'username' => 'required|unique:users',
                 'password' => 'required',
             ],
             [
                 'nama.required' => 'Nama tidak boleh kosong',
+                'nosamb.required' => 'No Sambungan tidak boleh kosong',
+                'nosamb.numeric' => 'No Sambungan harus menggunakan angka',
+                'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
                 'no_whatsapp.required' => 'No whatsapp tidak boleh kosong',
                 'no_whatsapp.numeric' => 'No whatsapp harus menggunakan angka',
                 'no_whatsapp.digits_between' => 'No whatsapp harus terdiri dari 10 hingga 13 angka',
@@ -70,6 +97,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->nama = $request->nama;
         $user->no_whatsapp = $request->no_whatsapp;
+        $user->nosamb = $request->nosamb;
 
         $user->save();
         return redirect('/login')->with('pesan-success', 'Akun berhasil di buat, Tunggu akun di verifikasi oleh admin');
@@ -89,7 +117,6 @@ class AuthController extends Controller
             'username' => 'required|unique:users,username,' . $id,
             'password' => 'nullable', // Allow the password to be nullable
             'nik' => 'nullable|numeric|digits_between:0,16|unique:users,nik,' . $id,
-            'nosamb' => 'nullable|numeric|digits_between:0,10',
             'alamat' => 'nullable',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
@@ -102,8 +129,6 @@ class AuthController extends Controller
             'nik.numeric' => 'NIK harus menggunakan angka',
             'nik.digits_between' => 'NIK tidak boleh lebih dari 16 digit',
             'nik.unique' => 'NIK sudah digunakan oleh pengguna lain',
-            'nosamb.numeric' => 'No. Sambungan harus menggunakan angka',
-            'nosamb.digits_between' => 'No. Sambungan tidak boleh lebih dari 10 digit',
         ]);
 
         $user = User::findOrFail($id);
@@ -114,7 +139,6 @@ class AuthController extends Controller
             'username' => $request->username,
             'no_whatsapp' => $request->no_whatsapp,
             'nik' => $request->nik,
-            'nosamb' => $request->nosamb,
             'alamat' => $request->alamat,
         ];
 

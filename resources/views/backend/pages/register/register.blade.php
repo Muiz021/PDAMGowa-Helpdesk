@@ -11,9 +11,9 @@
     <!-- Title Page-->
     <title>Register</title>
 
-        <!-- Favicons -->
-        <link href="{{ asset('frontend/assets/img/logo-pdam.png') }}" rel="icon">
-        <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="{{ asset('frontend/assets/img/logo-pdam.png') }}" rel="icon">
+    <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fontfaces CSS-->
     <link href="{{ asset('backend/css/font-face.css') }}" rel="stylesheet" media="all">
@@ -49,8 +49,9 @@
                 <div class="login-wrap" style="margin-top: 50px; margin-bottom:100px;">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="{{url('/login')}}">
-                                <img src="{{asset('frontend/assets/img/logo-pdam.png')}}" width="70px" alt="CoolAdmin">
+                            <a href="{{ url('/login') }}">
+                                <img src="{{ asset('frontend/assets/img/logo-pdam.png') }}" width="70px"
+                                    alt="CoolAdmin">
                             </a>
                         </div>
                         @if (session('pesan-danger'))
@@ -66,18 +67,23 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input class="au-input au-input--full" type="text" name="nama" value="{{old('nama')}}"
-                                        placeholder="Masukkan Nama">
+                                    <input class="au-input au-input--full" type="text" name="nama"
+                                        value="{{ old('nama') }}" placeholder="Masukkan Nama">
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Sambungan</label>
+                                    <input class="au-input au-input--full" type="text" name="nosamb"
+                                        value="{{ old('nosamb') }}" placeholder="Masukkan No. Sambungan">
                                 </div>
                                 <div class="form-group">
                                     <label>No. WhatsApp</label>
-                                    <input class="au-input au-input--full" type="text" name="no_whatsapp" value="{{old('no_whatsapp')}}"
-                                        placeholder="Masukkan No. WhatsApp">
+                                    <input class="au-input au-input--full" type="text" name="no_whatsapp"
+                                        value="{{ old('no_whatsapp') }}" placeholder="Masukkan No. WhatsApp">
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="username" value="{{old('username')}}"
-                                        placeholder="Masukkan Username">
+                                    <input class="au-input au-input--full" type="text" name="username"
+                                        value="{{ old('username') }}" placeholder="Masukkan Username">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>

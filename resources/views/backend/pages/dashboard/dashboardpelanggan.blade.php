@@ -39,17 +39,12 @@
                                             <input type="text" name="nik" class="form-control-sm form-control"
                                                 value="{{ Auth::user()->nik }}" disabled>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="no_whatsapp" class="form-control-label">No. Whatsapp</label>
                                             <input type="text" name="no_whatsapp" class="form-control-sm form-control"
                                                 value="{{ Auth::user()->no_whatsapp }}" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="no_whatsapp" class="form-control-label">No. Sambungan</label>
-                                            <input type="text" name="nosamb" class="form-control-sm form-control"
-                                                value="{{ Auth::user()->nosamb }}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label for="no_whatsapp" class="form-control-label">Alamat</label>
