@@ -2,16 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
     public function login()
     {
+        // if(tanggal sekarang = tanggal 1 bulan 1 tahun 2024){
+        //     user = admin
+        //     if (user->is_send == false) {
+        //         kirim email ke pimpinan
+        //         // Dapatkan data berdasarkan rentang waktu
+        //         $data = Pengaduan::whereBetween('tanggal', [$request->start_date, $request->end_date])->get();
+        //         $start = tanggal 1 bulan 1 tahun 2024;
+        //         $end = tanggal 31 bulan 1 tahun 2024;
+
+        //         // Tampilkan data dalam PDF
+        //         $pdf = PDF::loadView('backend.pages.pengaduan.pdf',compact('data','start','end'));
+
+        //         return $pdf->download("pengaduan_periode_" . Carbon::parse($request->start_date)->isoFormat('DD_MMMM_YYYY') . "/" . Carbon::parse($request->end_date)->isoFormat('DD_MMMM_YYYY') . ".pdf");
+        //         user->is_send = true
+        //         update
+        //     }
+        // }
+        // if(tanggal sekarang = tanggal 1 bulan 2 tahun 2024){
+        //     user = admin
+        //     if (user->bulan_2 == false) {
+        //         kirim email ke pimpinan
+        //         user->bulan_2 = true
+        //         update
+        //     }
+        // }
+        // if(tanggal sekarang = tanggal 1 bulan 3 tahun 2024){
+        //     user = admin
+        //     user->bulan_2 = false
+        //     update
+        //     if (user->is_send == false) {
+        //         kirim email ke pimpinan
+        //         user->is_send = true
+        //         update
+        //     }
+        // }
+
         return view('backend.pages.login.login');
     }
 

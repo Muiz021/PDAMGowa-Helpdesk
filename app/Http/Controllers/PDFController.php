@@ -23,8 +23,8 @@ class PDFController extends Controller
         $end = $request->end_date;
 
         // Tampilkan data dalam PDF
-        $pdf = PDF::loadView('backend.pages.pengaduan.pdf',compact('data','start','end'));
+        $pdf = PDF::loadView('backend.pages.pengaduan.pdf', compact('data', 'start', 'end'));
 
-        return $pdf->download("pengaduan_periode_" . Carbon::parse($request->start_date)->isoFormat('DD_MMMM_YYYY') . "/" . Carbon::parse($request->end_date)->isoFormat('DD_MMMM_YYYY') . ".pdf");
+        return $pdf->download("pengaduan_periode_" . Carbon::parse($start)->isoFormat('DD_MMMM_YYYY') . "/" . Carbon::parse($end)->isoFormat('DD_MMMM_YYYY') . ".pdf");
     }
 }
