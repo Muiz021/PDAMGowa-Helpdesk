@@ -35,12 +35,13 @@ class SendMonthlyReport extends Command
         $today = Carbon::today();
 
         if ($today->day == 1) {
-            $email = 'muis.mm021@gmail.com';
+            $email = '#';
             $subject = 'Laporan Bulanan Pengaduan';
 
-            // Mengambil tanggal awal dan akhir bulan
-            $start = Carbon::parse()->startOfMonth();
-            $end = Carbon::parse()->endOfMonth();
+            // Mengambil tanggal awal dan akhir bulan pada bulan sebelumnya
+            $start = $today->subMonth()->startOfMonth();
+            $end = $today->endOfMonth();
+
 
             // Dapatkan data berdasarkan rentang waktu
             $data = Pengaduan::whereBetween('tanggal', [$start, $end])->get();
@@ -53,7 +54,9 @@ class SendMonthlyReport extends Command
                     ->subject($subject)
                     ->attachData($pdf->output(), 'Laporan_Bulanan_Pengaduan.pdf');
             });
-        }
+            }
+
+
 
         return Command::SUCCESS;
     }
