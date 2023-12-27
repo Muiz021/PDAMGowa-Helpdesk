@@ -1,5 +1,5 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 
 <!DOCTYPE html>
@@ -63,6 +63,11 @@ use Carbon\Carbon;
             height: auto;
         }
 
+        .kop-surat .logo-gowa {
+            width: 140px;
+            height: 80px;
+        }
+
         .kop-surat .teks-surat {
             text-align: center;
             width: 100%;
@@ -84,7 +89,7 @@ use Carbon\Carbon;
             margin-bottom: 0px;
         }
 
-        .garis{
+        .garis {
             color: #000;
             display: block;
             margin-top: -8px;
@@ -97,8 +102,9 @@ use Carbon\Carbon;
     <table class="kop-surat">
         <tr>
             <td width="14%">
-                <img src="{{url('https://upload.wikimedia.org/wikipedia/commons/e/e6/New_Coat_of_Arms_of_Gowa.png')}}"
-                    alt="logo-gowa" width="30%">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('backend/images/logo-gowa.png'))) }}"
+                    alt="logo-gowa" class="logo-gowa">
+
             </td>
             <td colspan="2" width="100%">
                 <div class="teks-surat">
@@ -110,15 +116,16 @@ use Carbon\Carbon;
                 </div>
             </td>
             <td width="14%">
-                <img src="{{url('https://pdamgowa.co.id/upload/0360c408404efb4a36fc1a4ada5867bb80400452820230114.png')}}"
-                    alt="logo-pdam" width="30%">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('backend/images/logo-pdam.png'))) }}"
+                    alt="logo-pdam">
             </td>
         </tr>
     </table>
     <hr width="80%" class="garis">
 
     <h1>DATA PENGADUAN</h1>
-    <h2>Periode {{Carbon::parse($start)->isoFormat('D MMMM YYYY')}} - {{Carbon::parse($end)->isoFormat('D MMMM YYYY')}}</h2>
+    <h2>Periode {{ Carbon::parse($start)->isoFormat('D MMMM YYYY') }} -
+        {{ Carbon::parse($end)->isoFormat('D MMMM YYYY') }}</h2>
 
     <table>
         <thead>
@@ -131,10 +138,10 @@ use Carbon\Carbon;
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $item)
+            @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ Carbon::parse($item->tanggal)->isoFormat('dddd/DD MMMM YYYY')}}</td>
+                    <td>{{ Carbon::parse($item->tanggal)->isoFormat('dddd/DD MMMM YYYY') }}</td>
                     <td>{{ ucwords($item->user->nama) }}</td>
                     <td>{{ ucwords(str_replace('_', ' ', $item->jenis_pengaduan)) }}</td>
                     <td>{{ ucwords(str_replace('_', ' ', $item->status_pengaduan)) }}</td>
@@ -143,4 +150,5 @@ use Carbon\Carbon;
         </tbody>
     </table>
 </body>
+
 </html>

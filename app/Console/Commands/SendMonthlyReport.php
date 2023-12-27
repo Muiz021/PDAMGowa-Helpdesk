@@ -35,7 +35,7 @@ class SendMonthlyReport extends Command
         $today = Carbon::today();
 
         if ($today->day == 1) {
-            $email = '#';
+            $email = 'muis.mm021@gmail.com';
             $subject = 'Laporan Bulanan Pengaduan';
 
             // Mengambil tanggal awal dan akhir bulan pada bulan sebelumnya
@@ -55,6 +55,7 @@ class SendMonthlyReport extends Command
                     ->attachData($pdf->output(), 'Laporan_Bulanan_Pengaduan.pdf');
             });
             }
+
 
 
 
