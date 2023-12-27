@@ -4,6 +4,7 @@ use Carbon\Carbon;
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Export PDF</title>
     <style>
@@ -32,7 +33,8 @@ use Carbon\Carbon;
             margin-top: 20px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
@@ -41,10 +43,80 @@ use Carbon\Carbon;
         th {
             background-color: #f2f2f2;
         }
+
+        .kop-surat {
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        .kop-surat th,
+        .kop-surat td {
+            border: transparent;
+            padding: 0;
+        }
+
+        .kop-surat img {
+            display: block;
+            margin: auto;
+            margin-bottom: 5px;
+            width: 100%;
+            height: auto;
+        }
+
+        .kop-surat .teks-surat {
+            text-align: center;
+            width: 100%;
+            margin: 10px auto;
+        }
+
+        .kop-surat .teks-surat h2 {
+            text-transform: uppercase;
+            color: #000;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .kop-surat .teks-surat span {
+            color: #000;
+            font-size: 9px;
+            display: block;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .garis{
+            color: #000;
+            display: block;
+            margin-top: -8px;
+        }
     </style>
 </head>
 
 <body>
+
+    <table class="kop-surat">
+        <tr>
+            <td width="14%">
+                <img src="{{url('https://upload.wikimedia.org/wikipedia/commons/e/e6/New_Coat_of_Arms_of_Gowa.png')}}"
+                    alt="logo-gowa" width="30%">
+            </td>
+            <td colspan="2" width="100%">
+                <div class="teks-surat">
+                    <h2>Perusahaan Umum Daerah Air Minum</h2>
+                    <h2>"Tirta Jeneberang"</h2>
+                    <h2>Kabupaten Gowa</h2>
+                    <span>Jl. Tirta Jeneberang No. 17 Telp. (0411) 8220242 Email.
+                        perumdatirtajeneberang@gmail.com</span>
+                </div>
+            </td>
+            <td width="14%">
+                <img src="{{url('https://pdamgowa.co.id/upload/0360c408404efb4a36fc1a4ada5867bb80400452820230114.png')}}"
+                    alt="logo-pdam" width="30%">
+            </td>
+        </tr>
+    </table>
+    <hr width="80%" class="garis">
+
     <h1>DATA PENGADUAN</h1>
     <h2>Periode {{Carbon::parse($start)->isoFormat('D MMMM YYYY')}} - {{Carbon::parse($end)->isoFormat('D MMMM YYYY')}}</h2>
 

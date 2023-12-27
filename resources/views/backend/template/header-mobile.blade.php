@@ -15,7 +15,7 @@
     </div>
     <nav class="navbar-mobile">
         <div class="container-fluid">
-            @if (auth()->user()->roles == 'admin')
+            @if (Auth::user()->roles == 'admin')
                 <ul class="navbar-mobile__list list-unstyled">
                     <li class="{{ request()->is('backend/admin/dashboard*') ? 'active' : '' }}">
                         <a href="/backend/admin/dashboard">
@@ -26,7 +26,7 @@
                             <i class="fas fa-user"></i>Pelanggan</a>
                     </li>
                     <li class="{{ request()->is('backend/admin/pengaduan*') ? 'active' : '' }}">
-                        <a href="{{ route('pengaduan.index') }}">
+                        <a href="{{ url('/backend/admin/pengaduan') }}">
                             <i class="fa fa-bullhorn"></i>Pengaduan</a>
                     </li>
                 </ul>
