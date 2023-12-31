@@ -19,10 +19,11 @@
                             <h3 class="title-5 m-b-35">Data Pengaduan</h3>
                         </div>
                         @if (Auth::user()->roles == 'admin')
-                        <div class="table-data__tool-right">
-                            <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#export-pdf">
-                                export pdf</button>
-                        </div>
+                            <div class="table-data__tool-right">
+                                <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small"
+                                    data-toggle="modal" data-target="#export-pdf">
+                                    export pdf</button>
+                            </div>
                         @endif
                     </div>
                     <div class="table-responsive table-responsive-data2">
@@ -44,7 +45,7 @@
                                     <tr class="tr-shadow">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            {{$item->tanggal}}
+                                            {{ $item->tanggal }}
                                         </td>
                                         @if (Auth::user()->roles == 'admin')
                                             <td>{{ $item->user->nama }}</td>
@@ -66,6 +67,8 @@
                                                 <span class="status--denied">Belum Selesai</span>
                                             @elseif ($item->status_pengaduan == 'proses')
                                                 <span style="color: goldenrod">Di Proses</span>
+                                            @elseif ($item->status_pengaduan == 'ditolak')
+                                                <span class="status--denied">Ditolak</span>
                                             @elseif ($item->status_pengaduan == 'selesai')
                                                 <span class="status--process">Selesai</span>
                                             @endif
@@ -83,6 +86,16 @@
                                                                 <i class="zmdi zmdi-mail-send"></i>
                                                             </button>
                                                         </form>
+
+                                                        <form action="{{ route('update_status_ditolak', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('put')
+                                                            <button type="submit" class="item mr-1" data-placement="top"
+                                                                title="Ditolak">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                        </form>
                                                     @elseif ($item->status_pengaduan == 'proses')
                                                         <form action="{{ route('update-pengaduan-selesai', $item->id) }}"
                                                             method="POST">
@@ -91,6 +104,15 @@
                                                             <button type="submit" class="item mr-1" data-placement="top"
                                                                 title="Selesai">
                                                                 <i class="zmdi zmdi-mail-send"></i>
+                                                            </button>
+                                                        </form>
+                                                        <form action="{{ route('update_status_ditolak', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('put')
+                                                            <button type="submit" class="item mr-1" data-placement="top"
+                                                                title="Ditolak">
+                                                                <i class="fas fa-times"></i>
                                                             </button>
                                                         </form>
                                                     @endif

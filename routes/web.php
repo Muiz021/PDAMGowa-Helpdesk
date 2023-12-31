@@ -53,6 +53,7 @@ Route::prefix('backend')->group(function () {
         ]);
         Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
         Route::put('status-pengaduan-selesai/{id}',[PengaduanController::class,'update_status_selesai'])->name('update-pengaduan-selesai');
+        Route::put('status-pengaduan-ditolak/{id}',[PengaduanController::class,'update_status_ditolak'])->name('update_status_ditolak');
         // end pengaduan
 
         // export pdf

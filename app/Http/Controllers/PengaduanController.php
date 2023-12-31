@@ -305,4 +305,34 @@ class PengaduanController extends Controller
         );
         return redirect()->back();
     }
+
+    public function update_status_ditolak($id)
+    {
+        $pengaduan = Pengaduan::with('user')->findorfail($id);
+        // dd($pengaduan);
+
+        $pengaduan->update(
+            [
+                'status_pengaduan' => 'ditolak'
+            ]
+        );
+
+        $client = new Client();
+        $url = "http://8.215.24.202/message";
+
+        // pesan
+        $wa = $pengaduan->user->no_whatsapp;
+        $message = "Maaf pengaduan anda di tolak,silahkan lakukan pembayaran tagihan terlebih dahulu";
+        $body = [
+            'phoneNumber' => $wa,
+            'message' => $message,
+        ];
+
+        $client->request('POST', $url, [
+            'form_params' => $body,
+            'verify'  => false,
+        ]);
+
+        return redirect()->back();
+    }
 }
