@@ -81,7 +81,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             $client = new Client();
-            $url = "http://8.215.24.202/message";
+            $url = "http://8.215.24.202:8080/message";
 
             $wa = "+6287853444186";
             $message = "Pengingat Keluhan Air Tidak Mengalir Dari " . auth()->user()->nama . " Dengan Nomor Sambungan " . auth()->user()->nosamb . " Di Alamat " . auth()->user()->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
@@ -116,7 +116,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             $client = new Client();
-            $url = "http://8.215.24.202/message";
+            $url = "http://8.215.24.202:8080/message";
 
             $wa = "+6287853444186";
             $message = "Pengingat Keluhan Air Keruh Dari " . auth()->user()->nama . " Dengan Nomor Sambungan " . auth()->user()->nosamb . " Di Alamat " . auth()->user()->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
@@ -150,7 +150,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             $client = new Client();
-            $url = "http://8.215.24.202/message";
+            $url = "http://8.215.24.202:8080/message";
 
             $wa = "+6287853444186";
             $message = "Pengingat Keluhan Keberatan Bayar Dari " . auth()->user()->nama . " Dengan Nomor Sambungan " . auth()->user()->nosamb . " Di Alamat " . auth()->user()->alamat . ". Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
@@ -184,7 +184,7 @@ class OnboardingConversation extends Conversation
 
         if ($pengaduan) {
             $client = new Client();
-            $url = "http://8.215.24.202/message";
+            $url = "http://8.215.24.202:8080/message";
 
             $wa = "+6287853444186";
             $message = "Pengingat Keluhan Pembenahan Sambungan Dari " . auth()->user()->nama . " Dengan Nomor Sambungan " . auth()->user()->nosamb . " Di Alamat " . auth()->user()->alamat . " Silahkan Login Ke Web Admin Untuk Memeriksanya. Silahkan Masuk ke web: " . route('login');
