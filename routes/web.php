@@ -51,10 +51,13 @@ Route::prefix('backend')->group(function () {
             'show' => 'pengaduan.admin.show',
             'destroy' => 'pengaduan.admin.destroy',
         ]);
+        Route::get('/pengaduan/cari/{search}', [PengaduanController::class, 'search']);
         Route::put('status-pengaduan/{id}',[PengaduanController::class,'update_status'])->name('update-pengaduan');
         Route::put('status-pengaduan-selesai/{id}',[PengaduanController::class,'update_status_selesai'])->name('update-pengaduan-selesai');
         Route::put('status-pengaduan-ditolak/{id}',[PengaduanController::class,'update_status_ditolak'])->name('update_status_ditolak');
         // end pengaduan
+
+        Route::get('/pemberitahuan', [PelangganController::class, 'pemberitahuan']);
 
         // export pdf
         Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export-pdf');

@@ -21,6 +21,10 @@
                         <a href="/backend/admin/pelanggan">
                             <i class="fas fa-user"></i>Pelanggan</a>
                     </li>
+                    <li class="{{ request()->is('backend/admin/pemberitahuan*') ? 'active' : '' }}">
+                        <a href="/backend/admin/pemberitahuan">
+                            <i class="fa fa-history"></i>Riwayat Info</a>
+                    </li>
                     <li class="{{ request()->is('backend/admin/pengaduan*') ? 'active' : '' }}">
                         <a href="{{route('pengaduan.admin.index')}}">
                             <i class="fa fa-bullhorn"></i>Pengaduan</a>

@@ -20,6 +20,13 @@
                         </div>
                         @if (Auth::user()->roles == 'admin')
                             <div class="table-data__tool-right">
+                                @if ($search)
+                                    <input type="text" id="search" class="mr-2" placeholder="Cari No. Sambungan"
+                                        style="border: rgb(255, 255, 255) solid 0.5px; padding:7px; border-radius:5px;" value="{{ $search }}">
+                                @else
+                                    <input type="text" id="search" class="mr-2" placeholder="Cari No. Sambungan"
+                                        style="border: rgb(255, 255, 255) solid 0.5px; padding:7px; border-radius:5px;">
+                                @endif
                                 <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small"
                                     data-toggle="modal" data-target="#export-pdf">
                                     export pdf</button>
@@ -37,7 +44,6 @@
                                     @endif
                                     <th>Jenis Pengaduan</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -165,6 +171,20 @@
     </div>
 
     @include('backend.pages.pengaduan.model')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#search').on('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    var searchValue = $(this).val();
+                    var searchURL = "/backend/admin/pengaduan/cari/" + searchValue;
+                    window.location.href = searchURL;
+                }
+            });
+        });
+    </script>
 
     @if (Auth::user()->roles == 'user')
         <script>

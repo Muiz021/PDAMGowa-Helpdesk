@@ -6,6 +6,8 @@ use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
+use App\Models\Pemberitahuan;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -31,6 +33,12 @@ class PelangganController extends Controller
     {
         $user = User::where('roles', '=', 'user')->get();
         return view('backend.pages.pelanggan.index', compact('user'));
+    }
+
+    public function pemberitahuan()
+    {
+        $pemberitahuan = Pemberitahuan::get();
+        return view('backend.pages.pemberitahuan.index', compact('pemberitahuan'));
     }
 
     public function edit_pelanggan($id, Request $request)
@@ -117,6 +125,15 @@ class PelangganController extends Controller
 
     public function kirimInfo(Request $request)
     {
+        $pemberitahuan = new Pemberitahuan();
+
+        $pemberitahuan->message = $request->message;
+        $currentDateTime = Carbon::now();
+        $formattedDateTime = $currentDateTime->format('H:i:s, d M Y');
+        $pemberitahuan->waktu = $formattedDateTime;
+
+        $pemberitahuan->save();
+
         $client = new Client();
         $url = "http://8.215.24.202:8080/message";
 
