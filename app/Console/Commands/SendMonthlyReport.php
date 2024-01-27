@@ -39,8 +39,8 @@ class SendMonthlyReport extends Command
             $subject = 'Laporan Bulanan Pengaduan';
 
             // Mengambil tanggal awal dan akhir bulan pada bulan sebelumnya
-            $start = $today->subMonth()->startOfMonth();
-            $end = $today->endOfMonth();
+            $start = $today->copy()->startOfMonth();
+            $end = $today->copy()->endOfMonth();
 
 
             // Dapatkan data berdasarkan rentang waktu
@@ -56,10 +56,7 @@ class SendMonthlyReport extends Command
             });
             }
 
-
-
-
-
+        
         return Command::SUCCESS;
     }
 }

@@ -6,6 +6,7 @@ use PDF;
 use Carbon\Carbon;
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class PDFController extends Controller
 {
@@ -18,7 +19,7 @@ class PDFController extends Controller
         ]);
 
         // Dapatkan data berdasarkan rentang waktu
-        $data = Pengaduan::whereBetween('tanggal', [$request->start_date, $request->end_date])->get();
+        $data = Pengaduan::whereBetween('tanggal', [$request->start_date, $request->end_date])->where('status_pengaduan',$request->status_pengaduan)->get();
         $start = $request->start_date;
         $end = $request->end_date;
 

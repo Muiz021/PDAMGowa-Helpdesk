@@ -126,6 +126,14 @@
                             <label for="end_date" class="form-control-label">Akhir tanggal:</label>
                             <input type="date" name="end_date" class="form-control-sm form-control" required>
                         </div>
+                        <div class="form-group">
+                            <label for="status_pengaduan" class="form-control-label">Status</label>
+                            <select name="status_pengaduan" class="form-control-sm form-control" required>
+                                <option value="ditolak">Ditolak</option>
+                                <option value="proses">Proses</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
