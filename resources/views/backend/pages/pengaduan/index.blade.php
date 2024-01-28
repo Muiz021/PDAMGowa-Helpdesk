@@ -22,7 +22,8 @@
                             <div class="table-data__tool-right">
                                 @if ($search)
                                     <input type="text" id="search" class="mr-2" placeholder="Cari No. Sambungan"
-                                        style="border: rgb(255, 255, 255) solid 0.5px; padding:7px; border-radius:5px;" value="{{ $search }}">
+                                        style="border: rgb(255, 255, 255) solid 0.5px; padding:7px; border-radius:5px;"
+                                        value="{{ $search }}">
                                 @else
                                     <input type="text" id="search" class="mr-2" placeholder="Cari No. Sambungan"
                                         style="border: rgb(255, 255, 255) solid 0.5px; padding:7px; border-radius:5px;">
@@ -47,9 +48,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pengaduans as $item)
+                                @foreach ($pengaduans as $key => $item)
                                     <tr class="tr-shadow">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pengaduans->firstItem() + $key }}</td>
                                         <td>
                                             {{ $item->tanggal }}
                                         </td>
@@ -164,6 +165,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="left">
+                            Showing {{ $pengaduans->firstItem() }} of {{ $pengaduans->lastItem() }}
+                        </div>
+                        <div class="right">
+                            {{ $pengaduans->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

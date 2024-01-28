@@ -31,9 +31,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($user as $item)
+                                @foreach ($user as $key => $item)
                                     <tr class="tr-shadow">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->firstItem() + $key }}</td>
                                         <td>
                                             <span class="block-email">{{ $item->nosamb }}</span>
                                         </td>
@@ -68,6 +68,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="left">
+                            Showing {{ $user->firstItem() }} of {{ $user->lastItem() }}
+                        </div>
+                        <div class="right">
+                            {{ $user->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -31,13 +31,13 @@ class PelangganController extends Controller
 
     public function pelanggan()
     {
-        $user = User::where('roles', '=', 'user')->get();
+        $user = User::where('roles', '=', 'user')->paginate(10);
         return view('backend.pages.pelanggan.index', compact('user'));
     }
 
     public function pemberitahuan()
     {
-        $pemberitahuan = Pemberitahuan::get();
+        $pemberitahuan = Pemberitahuan::paginate(10);
         return view('backend.pages.pemberitahuan.index', compact('pemberitahuan'));
     }
 

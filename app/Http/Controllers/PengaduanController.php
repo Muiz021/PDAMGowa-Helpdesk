@@ -21,7 +21,7 @@ class PengaduanController extends Controller
         $user = Auth::user();
         if ($user->roles == 'admin') {
             $search = '';
-            $pengaduans = Pengaduan::with('user')->orderBy('tanggal', 'asc')->get();
+            $pengaduans = Pengaduan::with('user')->orderBy('tanggal', 'asc')->paginate(10);
             $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
                 $query->where('status_pengaduan', 'belum_selesai')
                     ->orWhere('status_pengaduan', 'proses');
@@ -40,7 +40,7 @@ class PengaduanController extends Controller
             })->first();
         } else {
             $search = '';
-            $pengaduans = Pengaduan::where('user_id', $user->id)->orderBy('tanggal', 'asc')->get();
+            $pengaduans = Pengaduan::where('user_id', $user->id)->orderBy('tanggal', 'asc')->paginate(10);
             $airTidakMengalir = Pengaduan::where('user_id', auth()->user()->id)->where('jenis_pengaduan', 'air_tidak_mengalir')->where(function ($query) {
                 $query->where('status_pengaduan', 'belum_selesai')
                     ->orWhere('status_pengaduan', 'proses');
@@ -89,7 +89,7 @@ class PengaduanController extends Controller
             });
         }
 
-        $pengaduans = $query->get();
+        $pengaduans = $query->paginate(10);
 
         return view('backend.pages.pengaduan.index', compact('pengaduans', 'airTidakMengalir', 'airKeruh', 'keberatanBayar', 'pembenahanSambungan', 'search'));
     }

@@ -22,9 +22,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pemberitahuan as $item)
+                                @foreach ($pemberitahuan as $key => $item)
                                     <tr class="tr-shadow">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pemberitahuan->firstItem() + $key }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{{ $item->message }}</td>
                                     </tr>
@@ -32,6 +32,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="left">
+                            Showing {{ $pemberitahuan->firstItem() }} of {{ $pemberitahuan->lastItem() }}
+                        </div>
+                        <div class="right">
+                            {{ $pemberitahuan->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
