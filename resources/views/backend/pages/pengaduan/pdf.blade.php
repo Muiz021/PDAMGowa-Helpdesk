@@ -123,7 +123,7 @@
     </table>
     <hr width="80%" class="garis">
 
-    <h1>DATA PENGADUAN</h1>
+    <h1>LAPORAN DATA PENGADUAN</h1>
     <h2>Periode {{ Carbon::parse($start)->isoFormat('D MMMM YYYY') }} -
         {{ Carbon::parse($end)->isoFormat('D MMMM YYYY') }}</h2>
 

@@ -8,7 +8,7 @@
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="image">
-                                <img src="{{asset('backend/images/icon/avatar-01.jpg')}}" alt="John Doe" />
+                                <img src="{{asset('backend/images/icon/avatar-kosong.png')}}" alt="avatar kosong" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="{{Auth::user()->roles == 'admin' ? route('dashboard.admin') : route('dashboard.user')}}">{{ auth()->user()->nama }}</a>
@@ -17,7 +17,7 @@
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="{{Auth::user()->roles == 'admin' ? route('dashboard.admin') : route('dashboard.user')}}">
-                                            <img src="{{asset('backend/images/icon/avatar-01.jpg')}}" alt="John Doe" />
+                                            <img src="{{asset('backend/images/icon/avatar-kosong.png')}}" alt="avatar kosong" />
                                         </a>
                                     </div>
                                     <div class="content">
