@@ -87,7 +87,7 @@ class AuthController extends Controller
 
         if ($nosamb) {
             $client = new Client();
-            $url = "http://8.215.24.202:8080/message";
+            $url = "http://47.250.13.56/message";
 
             $wa = $request->no_whatsapp;
             $message = "No. Sambungan telah digunakan, Silahkan Gunakan No. Sambungan Lain";

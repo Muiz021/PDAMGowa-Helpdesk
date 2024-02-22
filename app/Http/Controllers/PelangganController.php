@@ -86,7 +86,7 @@ class PelangganController extends Controller
         $nosamb = User::where('roles', 'user')->where('nosamb', $user->nosamb)->where('is_verification', false)->get();
         foreach ($nosamb as $item) {
             $client = new Client();
-            $url = "http://8.215.24.202:8080/message";
+            $url = "http://47.250.13.56/message";
 
             $wa = $item->no_whatsapp;
             $message = "Verifikasi anda gagal. No. Sambungan telah digunakan, Silahkan Gunakan No. Sambungan Lain";
@@ -105,7 +105,7 @@ class PelangganController extends Controller
         }
 
         $client = new Client();
-        $url = "http://8.215.24.202:8080/message";
+        $url = "http://47.250.13.56/message";
 
         $wa = $user->no_whatsapp;
         $message = "Akun Anda Telah Di Verifikasi Oleh Admin PDAM";
@@ -135,7 +135,7 @@ class PelangganController extends Controller
         $pemberitahuan->save();
 
         $client = new Client();
-        $url = "http://8.215.24.202:8080/message";
+        $url = "http://47.250.13.56/message";
 
         $user = User::where('roles', 'user')->get();
 
